@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block title %}<title>Shop | Orders </title>{% endblock title %}
+{% load static %}
+{% load cart %}
+{% load custom_filter %}
+<style>
+  .warning {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    color: #212529;
+    background-color: #ffc107;
+  }
+
+  .success {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    color: #212529;
+    background-color: #28a745;
+  }
+  span.mobile{
+    display: none;
+  }
+
+  @media screen and (max-width: 750px) {
+    .container {
+      width: inherit;
+      padding-left: 0px;
+      margin-left: 11px;
+    }
+
+    thead {
+      display: none;
+    }
+    .order{
+      display: grid;
+    }
+    span.mobile{
+    display: contents;
+    font-weight: bold;
+  }
+  }
+</style>
+
+<div class="container">
+  <div class="border rounded p-4 m-4">
+    <p class="display-5 pl-4 ml-4">Your Orders</p>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sno.</th>
+          <th scope="col">Image</th>
+          <th scope="col">Product</th>
+          <th scope="col">Date</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for order in orders %}
+        <tr class="order">
+          <th style="font-weight: lighter;">{{forloop.counter}}.</th>
+          <td><img src="{{order.product.image.url}}" style="height: 90px;"></td>
+          <td class="name"><span class="mobile">Product - </span> {{order.product.name}}</td>
+          <td class="date"><span class="mobile">Date - </span>{{order.date}}</td>
+          <td class="price"><span class="mobile">Price - </span>{{order.price|currency}}</td>
+          <td class="quantity"><span class="mobile">Quantity - </span>{{order.quantity}}</td>
+          <td class="total"><span class="mobile">Total - </span>{{order.quantity|multiply:order.price|currency}}</td>
+          {% if order.status %}
+          <td><small class="success"><span class="mobile">Status - </span>Completed</small></td>
+          {% else %}
+          <td><small class="warning"><span class="mobile">Status - </span>Pending</small></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,344 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-26 22:24+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\Items\settings.py:113
+msgid "English"
+msgstr "inglizcha"
+
+#: .\Items\settings.py:114
+msgid "Uzbek"
+msgstr "o'zbekcha"
+
+#: .\Items\settings.py:115
+msgid "Russian"
+msgstr "ruscha"
+
+#: .\Items\urls.py:24
+msgid "admin/"
+msgstr ""
+
+#: .\templates\base.html:658 .\templates\base.html:665
+msgid "Cart"
+msgstr "Arava"
+
+#: .\templates\base.html:659
+msgid "Orders"
+msgstr "Buyurtmalar"
+
+#: .\templates\base.html:660
+msgid "logout"
+msgstr "chiqish"
+
+#: .\templates\base.html:663
+msgid "Login"
+msgstr "Kirish"
+
+#: .\templates\base.html:664
+msgid "Sign up"
+msgstr "Ro'yxatdan o'tish"
+
+#: .\templates\base.html:682
+msgid "Create a future market with Items!!"
+msgstr "Mahsulotlar bilan kelajakdagi bozorni yarating !!"
+
+#: .\templates\base.html:687
+msgid "Quick Links"
+msgstr "Tezkor havolalar"
+
+#: .\templates\base.html:692 .\templates\index.html:141
+msgid "Home"
+msgstr "Uy"
+
+#: .\templates\base.html:695
+msgid "Contact"
+msgstr "Aloqa"
+
+#: .\templates\base.html:698
+msgid "Sign Up"
+msgstr "Ro'yxatdan o'tish"
+
+#: .\templates\base.html:701
+msgid "Log In"
+msgstr "Kirish"
+
+#: .\templates\base.html:707
+msgid "Policy"
+msgstr "Siyosat"
+
+#: .\templates\base.html:712
+msgid "Privacy Policy"
+msgstr "Maxfiylik siyosati"
+
+#: .\templates\base.html:717
+msgid "PRIVACY POLICY"
+msgstr "MAXFIYLIK SIYOSATI"
+
+#: .\templates\base.html:719
+msgid "In this privacy statement:"
+msgstr ""
+
+#: .\templates\base.html:726
+msgid "1.Who are we?"
+msgstr ""
+
+#: .\templates\base.html:733
+msgid "2.What data do we collect about you?"
+msgstr ""
+
+#: .\templates\base.html:734
+msgid "• Data provided through direct interactions"
+msgstr ""
+
+#: .\templates\base.html:735
+msgid "Registration and other account information"
+msgstr ""
+
+#: .\templates\base.html:754
+msgid "Communication through the chat feature on our Platform:"
+msgstr ""
+
+#: .\templates\base.html:763
+msgid "Device Information:"
+msgstr ""
+
+#: .\templates\base.html:770
+msgid "Client and Log data:"
+msgstr ""
+
+#: .\templates\base.html:775
+msgid "Clickstream data:"
+msgstr ""
+
+#: .\templates\base.html:782
+msgid "Cookies and Similar Technologies:"
+msgstr ""
+
+#: .\templates\base.html:793
+msgid "•Data from third parties or publicly available sources."
+msgstr ""
+
+#: .\templates\base.html:798
+msgid "3.Do we collect data from children?"
+msgstr ""
+
+#: .\templates\base.html:810
+msgid "4.Why do we process your personal information?"
+msgstr ""
+
+#: .\templates\base.html:873
+msgid "5.How will we inform you about changes in our privacy statement?"
+msgstr ""
+
+#: .\templates\base.html:879
+msgid "6.Your rights"
+msgstr ""
+
+#: .\templates\base.html:883
+msgid "6.1.Uzbekistani data subjects"
+msgstr ""
+
+#: .\templates\base.html:884
+msgid ""
+"If you are a data subject in Uzbekistan, you will have the following rights:"
+msgstr ""
+
+#: .\templates\base.html:896
+msgid "6.2.EU General Data Protection Regulation ("
+msgstr ""
+
+#: .\templates\base.html:955
+msgid "7.Communication and marketing"
+msgstr ""
+
+#: .\templates\base.html:970
+msgid "8.Technical and organizational measures and processing security"
+msgstr ""
+
+#: .\templates\base.html:983
+msgid "9.Links to third-party websites"
+msgstr ""
+
+#: .\templates\base.html:991
+msgid "Our Lead Supervisory Authority in relation to GDPR related complaints"
+msgstr ""
+
+#: .\templates\base.html:993
+msgid "Telefon:"
+msgstr ""
+
+#: .\templates\base.html:994
+msgid "E-Mail:"
+msgstr ""
+
+#: .\templates\base.html:995
+msgid "custumer@dreammarket.uz"
+msgstr ""
+
+#: .\templates\base.html:997
+msgid "*For Uzbekistani matters contact us"
+msgstr ""
+
+#: .\templates\base.html:999
+msgid "11. Changes to this Policy"
+msgstr ""
+
+#: .\templates\base.html:1013
+msgid "Terms and Conditions"
+msgstr ""
+
+#: .\templates\base.html:1017
+msgid "TERMS AND CONDITIONS"
+msgstr ""
+
+#: .\templates\base.html:1053
+msgid "Membership Eligibility:"
+msgstr ""
+
+#: .\templates\base.html:1063
+msgid "Your Account and Registration Obligations:"
+msgstr ""
+
+#: .\templates\base.html:1072
+msgid "Communications:"
+msgstr ""
+
+#: .\templates\base.html:1078
+msgid "Platform for Transaction and Communication:"
+msgstr ""
+
+#: .\templates\base.html:1142
+msgid "Use of the Website:"
+msgstr ""
+
+#: .\templates\base.html:1324
+msgid "Contents Posted on Site:"
+msgstr ""
+
+#: .\templates\base.html:1354
+msgid "Privacy:"
+msgstr ""
+
+#: .\templates\base.html:1375
+msgid "Disclaimer of Warranties and Liability:"
+msgstr ""
+
+#: .\templates\base.html:1400
+msgid "Selling:"
+msgstr ""
+
+#: .\templates\base.html:1417
+msgid "Services:"
+msgstr ""
+
+#: .\templates\base.html:1418
+msgid "Payment"
+msgstr ""
+
+#: .\templates\base.html:1561
+msgid "Wallet:"
+msgstr ""
+
+#: .\templates\base.html:1586
+msgid "30 Day Replacement Guarantee:"
+msgstr ""
+
+#: .\templates\base.html:1638
+msgid "Digital Content: eBooks"
+msgstr ""
+
+#: .\templates\base.html:1760
+msgid "Indemnity:"
+msgstr ""
+
+#: .\templates\base.html:1768
+msgid "Applicable Law:"
+msgstr ""
+
+#: .\templates\base.html:1771
+msgid "Jurisdictional Issues/Sale in Uzbekistan Only:"
+msgstr ""
+
+#: .\templates\base.html:1779
+msgid "Trademark, Copyright and Restriction:"
+msgstr ""
+
+#: .\templates\base.html:1797
+msgid "Limitation of Liability:"
+msgstr ""
+
+#: .\templates\base.html:1809
+msgid "Contact us"
+msgstr "Biz bilan bog'lanish"
+
+#: .\templates\base.html:1812
+msgid "Chilanzar District - 190417"
+msgstr "Chilonzor tumani - 190417 yil"
+
+#: .\templates\base.html:1812
+msgid "Tashkent City, UZBEKISTAN"
+msgstr "Tashkent City, O'ZBEKISTON"
+
+#: .\templates\base.html:1817
+msgid "custumer"
+msgstr "mijoz"
+
+#: .\templates\base.html:1817
+msgid "@dreammarket.uz"
+msgstr "@dreammarket.uz"
+
+#: .\templates\index.html:111
+msgid "Category"
+msgstr "Turkum"
+
+#: .\templates\index.html:117
+msgid "Grocery"
+msgstr "Oziq-ovqat"
+
+#: .\templates\index.html:123
+msgid "Mobiles"
+msgstr "Mobil telefonlar"
+
+#: .\templates\index.html:129
+msgid "Fashion"
+msgstr "Moda"
+
+#: .\templates\index.html:135
+msgid "Appliances"
+msgstr "Texnika"
+
+#: .\templates\index.html:147
+msgid "Electronics"
+msgstr "Elektron mahsulotlar"
+
+#: .\templates\index.html:153
+msgid "Beauty"
+msgstr "Go'zallik"
+
+#: .\templates\index.html:159
+msgid "Toy"
+msgstr "O'yinchoq"
+
+#: .\templates\index.html:174
+msgid "Categories"
+msgstr "Kategoriyalar"
+
+#: .\templates\index.html:201
+msgid "All Products"
+msgstr "Barcha mahsulotlar"

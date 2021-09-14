@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block title %}<title>Shop </title>{% endblock title %}
+{% load static %}
+{% load cart %}
+{% load custom_filter %}
+
+<style>
+  .row a {
+    text-decoration: none;
+    color: black;
+  }
+  .card:hover {
+    box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #0b7dda;
+  }
+</style>
+
+<div style="margin: 10px; padding: 20px; font-size: 40px;">
+  You Searched For: {{ query }}
+</div>
+
+{% if products %}
+
+
+<div id="products" class="container-fluid mb-4">
+  <div class="row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+    {% for product in products %}
+    <a href="/#{{product.id}}">
+      <div class="card mx-auto mb-3" style="width: 18rem;" id="{{product.id}}">
+        <img src="{{product.image.url}}" class="card-img-top" style="height: 15em;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title" style="height: 2em;">{{product.name}}</h5>
+          <p class="card-text " style="color: black;"><b>{{product.price|currency}}</b></p>
+          <p class="card-text" style="height: 5em; font-size: smaller; color: black;">• {{product.description}}
+        </div>
+        <form action="/#{{product.id}}" method="POST" class="btn-block p-0">
+          {% csrf_token %}
+          <input type="text" name="product" hidden value="{{product.id}}">
+          <input type="submit" class="btn btn-outline-secondary float-end form-control" value="Add to cart">
+        </form>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
+<div style="margin: 10px; padding: 20px; font-size: 40px;">
+  NO RESULTS
+</div>
+{% endif %}
+
+{% endblock content %}

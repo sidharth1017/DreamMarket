@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+
+{% block title %}<title>Shop | Home </title>{% endblock title %}
+{% load static %}
+{% load cart %}
+{% load custom_filter %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css" />
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+  
+  h2 {
+    text-align: center;
+    padding: 3rem;
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+  }
+
+  /* Slider */
+  .slick-slide {
+    margin: 0px 10px;
+  }
+
+  .slick-slide img {
+    width: 100%;
+  }
+
+  .slide h5 {
+    text-align: center;
+    color: black;
+    text-decoration: none;
+  }
+
+  .customer-logos a {
+    text-decoration: none;
+  }
+
+  .customer-logos a h5:hover {
+    color: darkblue;
+  }
+
+  .container {
+    box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .slide h5 {
+      font-size: 16px;
+    }
+
+    form.example {
+      width: auto;
+    }
+  }
+
+
+  /* Search button */
+  body {
+    font-family: Arial;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  form.example button:hover {
+    background: #0b7dda;
+  }
+
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .card:hover{
+    box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #0b7dda;
+  }
+</style>
+
+<!-- slider -->
+<div class="container">
+  <section class="customer-logos slider">
+    <a href="Category">
+      <div class="slide">
+        <img src="static\images\catagory.jpeg">
+        <h5>{% trans "Category" %}</h5>
+      </div>
+    </a>
+    <a href="Grocery">
+      <div class="slide">
+        <img src="static\images\grocery-bag.png" />
+        <h5>{% trans "Grocery" %}</h5>
+      </div>
+    </a>
+    <a href="Mobile">
+      <div class="slide">
+        <img src="static\images\Mobile.png">
+        <h5>{% trans "Mobiles" %}</h5>
+      </div>
+    </a>
+    <a href="Fashion">
+      <div class="slide">
+        <img src="static\images\Fashion.png">
+        <h5>{% trans "Fashion" %}</h5>
+      </div>
+    </a>
+    <a href="Appliances">
+      <div class="slide">
+        <img src="static\images\Appliances.png">
+        <h5>{% trans "Appliances" %}</h5>
+      </div>
+    </a>
+    <a href="HomeFurniture">
+      <div class="slide">
+        <img src="static\images\Home.png">
+        <h5>{% trans "Home" %}</h5>
+      </div>
+    </a>
+    <a href="Electronics">
+      <div class="slide">
+        <img src="static\images\Electronics.png">
+        <h5>{% trans "Electronics" %}</h5>
+      </div>
+    </a>
+    <a href="Beauty">
+      <div class="slide">
+        <img src="static\images\Beauty.png">
+        <h5>{% trans "Beauty" %}</h5>
+      </div>
+    </a>
+    <a href="Toy">
+      <div class="slide">
+        <img src="static\images\Toy.png">
+        <h5>{% trans "Toy" %}</h5>
+      </div>
+    </a>
+  </section>
+</div>
+
+<hr>
+
+
+<div class="container-fluid" style="padding-top: 10px;">
+  <div class="row">
+
+    <!-- Filter -->
+    <div class="col-lg-2 mx-auto">
+      <ul class="list-group">
+        <li class="list-group-item active">{% trans "Categories" %}</li>
+        <form class="example" action="search" method="GET">
+          <input type="text" placeholder="Search for products" name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+
+        <div class="dropdown">
+          <form action="selectlanguage" method="POST">
+            {% csrf_token %}
+            <input type="next" hidden value="{{redirect_to}}">
+            <select name="language" >
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_available_languages as LANGUAGES %}
+              {% get_language_info_list for LANGUAGES as languages %}
+              {% for language in languages %}
+                  <option value="{{language.code}}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                    {{ language.name_local}} ({{language.code}})
+                  </option>
+              {% endfor %}
+            </select>
+            <input type="submit" value="Go">
+
+          </form>
+          
+        </div>
+
+
+        <a href="/" class="list-group-item list-group-item-action">{% trans "All Products" %}</a>
+        {% for category in categories %}
+        <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category.name}}</a>
+        {% endfor %}
+      </ul>
+
+    </div>
+
+    <!-- All Products -->
+    <div id="products" class="col-lg-10">
+      <div class="row mx-auto">
+        {% for product in products %}
+        <div class="card mx-auto mb-3" style="width: 18rem;" id="{{product.id}}">
+          <img src="{{product.image.url}}" class="card-img-top" style="height: 15em;" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="height: 2em;">{{product.name}}</h5>
+            <p class="card-text " style="color: black;"><b>{{product.price|currency}}</b></p>
+            <p class="card-text" style="height: 5em; font-size: smaller; color: black;">• {{product.description}}</p>
+          </div>
+
+          <div class="card-footer row p-0 btn-block">
+            {% if product|is_in_cart:request.session.cart %}
+            <div class="row p-0">
+              <form action="/#{{product.id}}" method="POST" class="col-2">
+                {% csrf_token %}
+                <input type="text" name="product" hidden value="{{product.id}}">
+                <input hidden style="color: black;" type="text" name="remove" value="-1">
+                <input type="submit" value=" - " class=" btn btn-block btn-dark">
+              </form>
+              <div class="text-center col p-0">{{product|cart_count:request.session.cart}} in cart</div>
+              <form action="/#{{product.id}}" method="POST" class="col-2">
+                {% csrf_token %}
+                <input type="text" name="product" hidden value="{{product.id}}">
+                <input type="submit" value=" + " class="btn btn-block btn-dark">
+              </form>
+            </div>
+            {% else %}
+            <form action="/#{{product.id}}" method="POST" class="btn-block p-0">
+              {% csrf_token %}
+              <input type="text" name="product" hidden value="{{product.id}}">
+              <input type="submit" class="btn btn-outline-secondary float-end form-control" value="Add to cart">
+            </form>
+            {% endif %}
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".customer-logos").slick({
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 1500,
+      arrows: false,
+      dots: false,
+      pauseOnHover: false,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 4
+          }
+        },
+        {
+          breakpoint: 520,
+          settings: {
+            slidesToShow: 3
+          }
+        }
+      ]
+    });
+  });
+
+
+
+
+</script>
+
+
+{% endblock content %}

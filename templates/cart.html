@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block title %}<title>Shop | Cart </title>{% endblock title %}
+{% load static %}
+{% load cart %}
+{% load custom_filter %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+<style>
+  .product-image {
+    float: left;
+    width: 20%;
+  }
+
+  .product-details {
+    float: left;
+    width: 37%;
+    color: black;
+  }
+
+  .product-price {
+    float: left;
+    width: 12%;
+    color: black;
+  }
+
+  .product-quantity {
+    float: left;
+    width: 10%;
+  }
+
+  .product-removal {
+    float: left;
+    width: 9%;
+  }
+
+  .product-line-price {
+    float: left;
+    width: 12%;
+    text-align: right;
+    color: black;
+  }
+
+  /* This is used as the traditional .clearfix class */
+  .group:before,
+  .shopping-cart:before,
+  .column-labels:before,
+  .product:before,
+  .totals-item:before,
+  .group:after,
+  .shopping-cart:after,
+  .column-labels:after,
+  .product:after,
+  .totals-item:after {
+    content: "";
+    display: table;
+  }
+
+  .group:after,
+  .shopping-cart:after,
+  .column-labels:after,
+  .product:after,
+  .totals-item:after {
+    clear: both;
+  }
+
+  .group,
+  .shopping-cart,
+  .column-labels,
+  .product,
+  .totals-item {
+    zoom: 1;
+  }
+
+  /* Body/Header stuff */
+
+  h1 {
+    font-weight: 100;
+    padding-top: 1em;
+    padding-left: 1em;
+    color: black;
+  }
+
+  h5 {
+    font-weight: 100;
+    padding-top: 1em;
+    padding-left: 1em;
+    color: black;
+  }
+
+  label {
+    color: rgb(3, 3, 3);
+  }
+
+  .shopping-cart {
+    margin-top: -23px;
+    margin-right: 36px;
+    margin-left: 36px;
+    margin-bottom: 20px;
+  }
+
+
+  /* Column headers */
+  .column-labels label {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgb(12, 11, 11);
+  }
+
+  .column-labels .product-image,
+  .column-labels .product-details,
+  .column-labels .product-removal {
+    text-indent: -9999px;
+  }
+
+  /* Product entries */
+  .product {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(22, 21, 21);
+  }
+
+  .product .product-image {
+    text-align: center;
+  }
+
+  .product .product-image img {
+    width: 100px;
+  }
+
+  .product .product-details .product-title {
+    margin-right: 20px;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    color: black;
+  }
+
+  .product .product-details .product-description {
+    margin: 5px 20px 5px 0;
+    line-height: 1.4em;
+    color: black;
+  }
+
+  .product .product-quantity p {
+    width: 40px;
+    color: black;
+  }
+
+  .product .remove-product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: rgb(221, 30, 30);
+    color: rgb(8, 8, 8);
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    font-size: 12px;
+    border-radius: 3px;
+  }
+
+  .product .remove-product:hover {
+    background-color: #a44;
+  }
+
+  /* Totals section */
+  .totals .totals-item {
+    float: right;
+    clear: both;
+    width: 100%;
+    margin-bottom: 10px;
+    color: black;
+  }
+
+  .totals .totals-item label {
+    float: left;
+    clear: both;
+    width: 79%;
+    text-align: right;
+    color: black;
+  }
+
+  .totals .totals-item .totals-value {
+    float: right;
+    width: 21%;
+    text-align: right;
+    color: black;
+  }
+
+  .totals .totals-item-total {
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    color: black;
+  }
+
+  .checkout {
+    float: right;
+    border: 0;
+    margin-top: 20px;
+    padding: 6px 25px;
+    background-color: #6b6;
+    color: rgb(19, 18, 18);
+    font-size: 25px;
+    border-radius: 3px;
+  }
+
+  .checkout:hover {
+    background-color: #494;
+  }
+
+  /* Make adjustments for tablet */
+  @media screen and (max-width: 650px) {
+    .shopping-cart {
+      margin: 0;
+      padding-top: 20px;
+      border-top: 1px solid rgb(26, 21, 21);
+      padding: 1em;
+    }
+
+    .column-labels {
+      display: none;
+    }
+
+    .product-image {
+      float: right;
+      width: auto;
+    }
+
+    .product-image img {
+      margin: 0 0 10px 10px;
+    }
+
+    .product-details {
+      float: none;
+      margin-bottom: 10px;
+      width: auto;
+    }
+
+    .product-price {
+      clear: both;
+      width: 70px;
+    }
+
+    .product-quantity {
+      width: 100px;
+    }
+
+    .product-quantity p {
+      margin-left: 59px;
+      margin-top: -19px;
+    }
+
+    .product-quantity:before {
+      content: "x";
+      color: rgb(0, 0, 0);
+    }
+
+    .product-removal {
+      width: auto;
+    }
+
+    .product-line-price {
+      float: right;
+      width: 70px;
+    }
+  }
+
+  /* Make more adjustments for phone */
+  @media screen and (max-width: 350px) {
+    .product-removal {
+      float: right;
+    }
+
+    .product-line-price {
+      float: right;
+      clear: left;
+      width: auto;
+      margin-top: 10px;
+    }
+
+    .product .product-line-price:before {
+      content: "Item Total: $";
+    }
+
+    .totals .totals-item label {
+      width: 60%;
+    }
+
+    .totals .totals-item .totals-value {
+      width: 40%;
+    }
+  }
+
+  .contain {
+    padding-top: 0em;
+    width: -webkit-fill-available;
+    padding-bottom: 15px;
+
+  }
+
+  nav {
+    width: -webkit-fill-available;
+  }
+
+  .qty-count {
+    margin: 0 auto;
+    background-color: red;
+    border: none;
+    color: white;
+    width: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+</style>
+
+<div class="contain">
+  {% if request.session.cart %}
+  <h1>Your Cart</h1>
+
+  <div class="shopping-cart">
+    <div class="column-labels">
+      <label class="product-image">Image</label>
+      <label class="product-details">Product</label>
+      <label class="product-price">Price</label>
+      <label class="product-quantity">Quantity</label>
+      <label class="product-removal">Remove</label>
+      <label class="product-line-price">Total</label>
+    </div>
+    {% for product in products %}
+    <div class="product">
+      <div class="product-image">
+        <img src="{{product.image.url}}">
+      </div>
+      <div class="product-details">
+        <div class="product-title">{{product}}</div>
+      </div>
+      <div class="product-price">{{product.price|currency}}</div>
+      <div class="product-quantity">
+        <p>{{product|cart_count:request.session.cart}}</p>
+      </div>
+      <div class="product-removal">
+        <form class="qty-count" action="cart" method="POST">
+          {% csrf_token %}
+          <input hidden style="color: black;" type="text" name="product" value="{{product.id}}">
+          <input hidden style="color: black;" type="text" name="remove" value="True">
+          <button class="qty-count qty-count--minus" type="submit">-</button>
+        </form>
+        <form class="qty-count" action="cart" method="POST">
+          {% csrf_token %}
+          <input hidden style="color: black;" type="text" name="product" value="{{product.id}}">
+          <button class="qty-count qty-count--add" type="submit">+</button>
+        </form>
+      </div>
+      <div class="product-line-price">
+        {{product|price_total:request.session.cart|currency}}
+      </div>
+      <div class="product-line-remove">
+        <form action="cart" method="POST">
+          {% csrf_token %}
+          <input hidden style="color: black;" type="text" name="product" value="{{product.id}}">
+          <input hidden style="color: black;" type="text" name="delete" value="True">
+          <button type="submit" class="btn btn-danger btn-sm" style="margin-top: -48px; margin-left: 13em;"><i
+              class="fa fa-trash-o"></i></button>
+        </form>
+
+      </div>
+
+    </div>
+    {% endfor %}
+    <div class="totals">
+      <div class="totals-item">
+        <label>Subtotal</label>
+        <div class="totals-value" id="cart-subtotal">
+          {{products|total_cart_price:request.session.cart|currency}}
+        </div>
+      </div>
+      <!-- <div class="totals-item">
+                    <label>Tax (5%)</label>
+                    <div class="totals-value" id="cart-tax">3.60</div>
+                </div> -->
+      <!-- <div class="totals-item">
+                    <label>Shipping</label>
+                    <div class="totals-value" id="cart-shipping">15.00</div>
+                </div> -->
+      <div class="totals-item totals-item-total">
+        <label>Grand Total </label>
+        <div class="totals-value" id="cart-total"> {{products|total_cart_price:request.session.cart|currency}}</div>
+      </div>
+    </div>
+    <a href="/" class="btn btn-outline-info border rounded">Continue Shopping</a>
+    <a href="checkout" class="btn btn-outline-info border rounded col-lg-2 float-end">Check Out</a>
+  </div>
+
+  {% else %}
+  <p class="text-center" style="font-size: 30px; color: black;">No Item in cart</p>
+  <p style=" padding-left: 10px; color: black;">Shop something!!</p><a href="/"
+    class="btn btn-outline-info border rounded">Back to Shopping</a>
+  {% endif %}
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+{% endblock content %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% block title %}<title>Shop | Category </title>{% endblock title %}
+{% load static %}
+
+<style>
+    .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .product-card {
+        display: flex;
+        flex-direction: column;
+
+        padding: 2%;
+        flex: 0 21%;
+
+        background-color: #FFF;
+        box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.25);
+    }
+    .product-card a {
+        text-decoration: none;
+        color:  black;
+    }
+    .product-card a:hover{
+        color:   #2874f0;
+        box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .product-image img {
+        width: 100%;
+    }
+
+    .product-info {
+        margin-top: auto;
+        padding-top: 20px;
+        text-align: center;
+    }
+
+    @media (max-width: 920px) {
+
+        .product-card {
+            flex: 1 21%;
+        }
+
+        .products .product-card:first-child,
+        .products .product-card:nth-child(2) {
+            flex: 2 46%;
+        }
+
+    }
+
+    @media (max-width: 600px) {
+
+        .product-card {
+            flex: 1 46%;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .product-filter {
+            flex-direction: column;
+        }
+
+        .sort {
+            align-self: flex-start;
+        }
+
+    }
+    .heading{
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 40px;
+        text-decoration: dashed;
+        color: white;
+        text-shadow: 1px 1px 4px black, 0 0 25px rgb(151, 9, 9), 0 0 10px red;
+    }
+</style>
+
+<div class="heading">
+    Categories
+</div>
+<hr>
+
+<section class="products">
+
+    <div class="product-card">
+        <a href="Grocery">
+            <div class="product-image">
+                <img src="https://img.icons8.com/fluent/240/000000/grocery-bag.png">
+            </div>
+            <div class="product-info">
+                <h5>Grocery</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Mobile">
+            <div class="product-image">
+                <img src="static\images\Mobile.png">
+            </div>
+            <div class="product-info">
+                <h5>Mobile</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Fashion">
+            <div class="product-image">
+                <img src="static\images\Fashion.png">
+            </div>
+            <div class="product-info">
+                <h5>Fashion</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Appliances">
+            <div class="product-image">
+                <img src="static\images\Appliances.png">
+            </div>
+            <div class="product-info">
+                <h5>Appliances</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="HomeFurniture">
+            <div class="product-image">
+                <img src="static\images\Home.png">
+            </div>
+            <div class="product-info">
+                <h5>Home</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Electronics">
+        <div class="product-image">
+            <img src="static\images\Electronics.png">
+        </div>
+        <div class="product-info">
+            <h5>Electronics</h5>
+        </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Beauty">
+        <div class="product-image">
+            <img src="static\images\Beauty.png">
+        </div>
+        <div class="product-info">
+            <h5>Beauty</h5>
+        </div>
+        </a>
+    </div>
+
+    <div class="product-card">
+        <a href="Toy">
+            <div class="product-image">
+                <img src="static\images\Toy.png">
+            </div>
+            <div class="product-info">
+                <h5>Toy</h5>
+            </div>
+        </a>
+    </div>
+
+</section>
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta tag for not zooming in Mobiles -->
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <!-- Description -->
+    <meta name="description" content="Shop">
+    <!-- Keywords -->
+    <meta name="keywords" content="Shop">
+    <!-- author  -->
+    <meta name="author" content=" ">
+    <!-- Font Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Faviconlogo -->
+    <link rel="shortcut icon" href="static\images\favicon.png" type="image/x-icon">
+    <!-- Title -->
+    {% block title %} <title>Shop</title>{% endblock title %}
+    <!-- Loading Tags -->
+    {% load static %}
+    {% load custom_filter %}
+    {% load i18n %}
+    <!-- style -->
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        nav {
+            display: flex;
+            height: 80px;
+            width: 100%;
+            background: #2874f0;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px 0 100px;
+            flex-wrap: wrap;
+        }
+
+        nav .logo {
+            color: #fff;
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 5px;
+        }
+
+        nav ul,
+        ol {
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+
+        nav ul li a {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav ul li {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav ul li a.active,
+        nav ul li a:hover {
+            color: #111;
+            background: #fff;
+        }
+
+        nav .menu-btn i {
+            color: #fff;
+            font-size: 22px;
+            cursor: pointer;
+            display: none;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        @media (max-width: 1000px) {
+            nav {
+                padding: 0 40px 0 50px;
+            }
+        }
+
+        @media (max-width: 920px) {
+            nav .menu-btn i {
+                color: #fff;
+                font-size: 22px;
+                cursor: pointer;
+                display: block;
+            }
+
+            #click:checked~.menu-btn i:before {
+                content: "\f00d";
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                background: #2874f0;
+                height: 100vh;
+                width: 100%;
+                text-align: center;
+                display: block;
+                z-index: 999;
+                transition: all 0.3s ease;
+            }
+
+            #click:checked~ul {
+                left: 0;
+            }
+
+            nav ul li {
+                width: 100%;
+                margin: 40px 0;
+            }
+
+            nav ul li a {
+                width: 100%;
+                margin-left: -100%;
+                display: block;
+                font-size: 20px;
+                transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            #click:checked~ul li a {
+                margin-left: 0px;
+            }
+
+            nav ul li a.active,
+            nav ul li a:hover {
+                background: none;
+                color: cyan;
+            }
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: -1;
+            width: 100%;
+            padding: 0 30px;
+            color: #1b1b1b;
+        }
+
+        .content div {
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        nav ul li:nth-child(odd) {
+            animation: up 1s forwards;
+        }
+
+        nav ul li:nth-child(even) {
+            animation: down 1s forwards;
+        }
+
+        @keyframes up {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes down {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* footer */
+        a {
+            text-decoration: none;
+            outline: none;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            flex-direction: row;
+        }
+
+        .footer-main-div {
+            width: 100%;
+            height: auto;
+            margin: auto;
+            background: black;
+            padding: 20px opx;
+        }
+
+
+
+        .footer-social-icons {
+
+            width: 100%;
+            height: auto;
+            margin: auto;
+        }
+
+        .footer-social-icons ul {
+            margin: 0px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .footer-social-icons ul li {
+
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin: 0px 10px;
+            border-radius: 50%;
+            background: #53FC53;
+        }
+
+        .footer-social-icons ul li a {
+            border: 1px solid white;
+            border-radius: 50%;
+            color: #272727;
+            font-size: 25px;
+            display: block;
+        }
+
+        .footer-social-icons ul li a:hover {
+            background-color: black;
+            color: #53FC53;
+        }
+
+        .footer-social-icons ul li a i {
+            line-height: 50px;
+
+        }
+
+        .headline {
+            text-align: left;
+            color: #53FC53;
+        }
+
+        .service {
+
+            text-align: left;
+            color: #53FC53;
+        }
+
+        .footer-menu-one {
+            width: 100%;
+            height: auto;
+            margin: auto;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        .footer-menu-one ul {
+            margin: opx;
+            padding: opx;
+            text-align: left;
+            list-style-type: none;
+        }
+
+        .footer-menu-one ul li {
+            display: list-item;
+            margin: 10px 15px;
+        }
+
+        .footer-menu-one ul li a {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-menu-one ul li a:hover {
+            color: plum;
+        }
+
+        .footer-menu-two {
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            margin: auto;
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+
+        .footer-menu-two ul {
+            margin: opx;
+            padding: opx;
+            text-align: left;
+            list-style-type: none;
+        }
+
+        .footer-menu-two ul li {
+
+            display: list-item;
+            margin: 10px 15px;
+        }
+
+        .footer-menu-two ul li a {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-menu-two ul li a:hover {
+            color: #53FC53;
+        }
+
+
+        /* FOOTER */
+        .footer {
+            width: 100%;
+            background: #262626;
+            background-size: cover;
+            display: block;
+        }
+
+        .inner-footer {
+            width: 95%;
+            margin: auto;
+            padding: 30px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            justify-content: center;
+        }
+
+        .footer-items {
+            padding-top: 40px;
+            width: 25%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .footer-items p {
+            padding-top: 40px;
+            font-size: 19px;
+            color: #fff;
+        }
+
+        .footer-items img {
+            width: 300px;
+            height: 90px;
+        }
+
+        .footer-items h1 {
+            color: #fff;
+        }
+
+        .border1 {
+
+            height: 3px;
+            width: 40px;
+            color: rgb(43, 145, 241);
+            background-color: rgb(43, 145, 241);
+            border: 0px;
+        }
+
+        .footer-items ul {
+            list-style: none;
+            color: #fff;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-items ul a {
+
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .footer-items ul a:hover {
+            color: rgb(43, 145, 241);
+        }
+
+        .footer-items ul li {
+            margin: 10px 0;
+
+        }
+
+        .footer-items li i {
+            margin-right: 20px;
+        }
+
+        .footer-bottom {
+            text-decoration: none;
+            padding: 16px;
+            background-color: rgb(43, 145, 241);
+            color: #000;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .footer-bottom a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .footer-bottom a:hover {
+            color: rgb(255, 255, 255);
+        }
+
+        .social-media {
+            width: 100%;
+            color: #fff;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .social-media a {
+            text-decoration: none;
+        }
+
+        .social-media i {
+            height: 25px;
+            width: 25px;
+            margin: 20px 10px;
+            padding: 4px;
+            color: #fff;
+            transition: 0.5s;
+        }
+
+        .social-media i:hover {
+            transform: scale(2.5);
+
+
+        }
+
+        /* for tablet mode view */
+
+        @media screen and (max-width: 1275px) {
+            .footer-items {
+                width: 50%;
+            }
+        }
+
+        /* for mobile screen view */
+
+        @media screen and (max-width: 660px) {
+            .footer-items {
+                width: 100%;
+            }
+        }
+
+        .fa-twitter:hover {
+            color: #00acee;
+        }
+
+        .fa-instagram:hover {
+            color: #8a3ab9;
+        }
+
+        .fa-facebook-square:hover {
+            color: #1877f2;
+        }
+
+        .fa-linkedin:hover {
+            color: #0e76a8;
+        }
+
+        .text-center.col.p-0 {
+            margin-top: 7px;
+        }
+
+        .popup h2 {
+            color: rgb(253, 56, 56);
+            text-align: center;
+            padding: 2rem;
+            font-size: 2.5rem;
+            margin-bottom: -3rem;
+            font-family: 'Times New Roman', Times, serif;
+
+        }
+
+        .popup h5 {
+            color: rgb(253, 56, 56);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .popup p {
+            color: #000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+
+        .popup {
+            position: fixed;
+            padding: 10px;
+            max-width: 800px;
+            border-radius: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, .9);
+            visibility: hidden;
+            opacity: 0;
+            /* "delay" the visibility transition */
+            -webkit-transition: opacity .5s, visibility 0s linear .5s;
+            transition: opacity .5s, visibility 0s linear .5s;
+            z-index: 1;
+            overflow-y: scroll !important;
+            max-height: 700px;
+            color: #000;
+        }
+
+        .popup:target {
+            visibility: visible;
+            opacity: 1;
+            /* cancel visibility transition delay */
+            -webkit-transition-delay: 0s;
+            transition-delay: 0s;
+        }
+
+        .popup-close {
+            position: absolute;
+            padding: 10px;
+            max-width: 500px;
+            border-radius: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, .9);
+        }
+
+        .popup .close {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 5px;
+            color: #000;
+            transition: color .3s;
+            font-size: 2em;
+            line-height: .6em;
+            font-weight: bold;
+        }
+
+        .popup .close:hover {
+            color: rgb(253, 56, 56);
+            ;
+        }
+
+        .close-popup {
+            background: rgba(0, 0, 0, .7);
+            cursor: default;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            visibility: hidden;
+            /* "delay" the visibility transition */
+            -webkit-transition: opacity .5s, visibility 0s linear .5s;
+            transition: opacity .5s, visibility 0s linear .5s;
+        }
+
+        .popup:target+.close-popup {
+            opacity: 1;
+            visibility: visible;
+            /* cancel visibility transition delay */
+            -webkit-transition-delay: 0s;
+            transition-delay: 0s;
+        }
+
+        @media screen and (max-width: 768px) {
+            .popup {
+                position: fixed;
+                padding: 10px;
+                max-width: revert;
+                border-radius: 10px;
+                top: 51%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 255, 255, .9);
+                visibility: hidden;
+                opacity: 0;
+                -webkit-transition: opacity .5s, visibility 0s linear .5s;
+                transition: opacity .5s, visibility 0s linear .5s;
+                z-index: 1;
+                overflow-y: scroll !important;
+                max-height: 534px;
+                width: -webkit-fill-available;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navigation bar start -->
+    <nav>
+        <div class="logo"> <a href="/"><img src="static\images\logo2.png"
+                    style="width: 180px; height: 59px;  margin-left:-48px;" class="logo" alt=""></a></div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn">
+            <i class="fa fa-bars"></i>
+        </label>
+        <ul>
+            {% if request.session.customer %}
+            <li><i class="fa fa-user"></i> {{ request.session.customer_name }}</li>
+            <li><a href="cart"><i class="fa fa-shopping-cart"></i> {% trans "Cart" %}</a></li>
+            <li><a href="orders"><i class='fa fa-shopping-bag'></i> {% trans "Orders" %}</a></li>
+            <li><a href="logout"><i class="fa fa-sign-out"></i> {% trans "logout" %}</a></li>
+            {% else %}
+            <li><a href="login" class="active"><i class="fa fa-user"></i>
+                    {% trans "Login" %}</a></li>
+            <li><a href="signup">{% trans "Sign up" %}</a></li>
+            <li><a href="cart"><i class="fa fa-shopping-cart"></i> {% trans "Cart" %}</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <!-- navigation bar end -->
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <!-- Footer start -->
+    <div class="footer">
+        <div class="inner-footer">
+
+            <!--  for company name and description -->
+            <div class="footer-items">
+                <img src="static\images\logo2.png" alt="">
+                <p>{% trans "Create a future market with Items!!" %}</p>
+            </div>
+
+            <!--  for quick links  -->
+            <div class="footer-items">
+                <h3>{% trans "Quick Links" %}</h3>
+                <div class="border1"></div>
+                <!--for the underline -->
+                <ul>
+                    <a href="/">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Home" %}</li>
+                    </a>
+                    <a href="Contact">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Contact" %}</li>
+                    </a>
+                    <a href="signup">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Sign Up" %}</li>
+                    </a>
+                    <a href="login">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Log In" %}</li>
+                    </a>
+
+                </ul>
+            </div>
+            <div class="footer-items">
+                <h3>{% trans "Policy" %}</h3>
+                <div class="border1"></div>
+                <!--for the underline -->
+                <ul>
+                    <a href="#Privacy">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Privacy Policy" %}</li>
+                    </a>
+                    <div id="Privacy" class="popup">
+
+                        <a href="#" class="close">&times;</a>
+                        <h2>{% trans "PRIVACY POLICY" %}</h2>
+                        <hr>
+                        <h5>{% trans "In this privacy statement:" %}</h5>
+                        <p>{% trans "Services means any products, services, content, features, technologies, or
+                            functions, and all
+                            related websites, applications and services offered to you by us. <br>
+                            Platform means the websites, mobile apps, mobile sites or other online properties through
+                            which we offer our Services." %} <br>
+                        </p>
+                        <h5>{% trans "1.Who are we?" %}</h5>
+                        <p>{% trans "The principal controller of your data for purposes of our international services is
+                            DreamMarket that are providing the services to you according to our Terms of Use,
+                            (hereinafter collectively referred to as <strong>“DREAMMARKET”, “we”, “us” or “our”</strong>
+                            in this privacy statement). These DREAMMARKET group entities are also considered data
+                            controllers for the local services they offer. Relevant contact details are set out in
+                            section 13." %}</p>
+                        <h5>{% trans "2.What data do we collect about you?" %}</h5>
+                        <strong>{% trans "• Data provided through direct interactions" %}</strong>
+                        <strong>{% trans "Registration and other account information" %}</strong>
+                        <p>{% trans "When you register to use our Services we may collect the following information
+                            about you:
+                            <br>
+                            • if you register using your Google account: first name, last name and email address;<br>
+                            • if you register using your Facebook account: we collect first name and last name as
+                            appeared on your Facebook account and Facebook IDs. In the event you have provided
+                            permission to Facebook through their in-app privacy option (which appears just before you
+                            register on our Platform), we may collect your gender, age or email id depending on the
+                            permissions granted by you; and<br>
+                            • if you register using your mobile number: mobile number.
+                            Depending on the choices you make during the log-in to our Services or during the process of
+                            engaging our Services, you may opt to give the following additional personal data:<br>
+                            • your name;<br>
+                            • e-mail address;<br>
+                            • mobile number; and/or<br>
+                            • your credit card details in case you want to purchase our paid services as defined in our
+                            Terms of Use." %}<br>
+                        </p>
+                        <h5>{% trans "Communication through the chat feature on our Platform:" %}</h5>
+                        <p>{% trans "When you use our chat feature to communicate with other users, we collect
+                            information that
+                            you choose to provide to other users through this feature. <br>
+
+                            •Data we collect automatically when you use our Services <br>
+                            When you interact with our Platform or use our Services, we automatically collect the
+                            following information about you:" %} <br>
+                        </p>
+                        <h5>{% trans "Device Information:" %}</h5>
+                        <p>{% trans "•Depending on your device permissions, if you post an item on our Platform, we
+                            automatically
+                            collect and process information about your actual location. We use various technologies to
+                            determine location, including IP address, GPS, Wi-Fi access points and mobile towers. Your
+                            location data allows you to see user DreamMarket near you and helps you in posting
+                            DreamMarket within your location." %}</p>
+                        <h5>{% trans "Client and Log data:" %}</h5>
+                        <p>{% trans "•Technical details, including the Internet Protocol (IP) address of your device,
+                            time zone
+                            and operating system. We will also store your login information (registration date, date of
+                            last password change, date of last successful login), type and version of your browser.</p>
+                        <h5>{% trans "Clickstream data:" %}</h5>
+                        <p>{% trans "•We collect information about your activity on our Platform which includes the
+                            sites from
+                            which you accessed our Platform, date and time stamp of each visit, searches you have
+                            performed, listings or advertisement banners you clicked, your interaction with such
+                            advertisements or listings, duration of your visit and the order in which you visit the
+                            content on our Platform" %}.</p>
+                        <h5>{% trans "Cookies and Similar Technologies:" %}</h5>
+                        <p>{% trans "•We use cookies to manage our users’ sessions, to store your preferences language
+                            selection
+                            and deliver you relevant advertisements. "Cookies" are small text files transferred by a web
+                            server to the hard drive of your device. Cookies may be used to collect the date and time of
+                            your visit, your browsing history, your preferences, and your username. You can set your
+                            browser to refuse all or some cookies, or to alert you when websites set or access cookies.
+                            If you disable or refuse cookies, please note that some parts of our Services/Platform may
+                            become inaccessible or not function properly. For more information on the cookies we use,
+                            please see our Policy on Cookies and Similar Technologies, the terms of which are
+                            incorporated into, and form part of, this Privacy Policy by reference.</p>
+                        <p>{% trans "•Data from third parties or publicly available sources." %} <br>
+                            We may receive personal data about you from various third parties and public sources. If you
+                            would like more information about this, please contact us using the relevant contact details
+                            set out in section 13." %}
+                        </p>
+                        <h5>{% trans "3.Do we collect data from children?" %} </h5>
+                        <p>{% trans "Our Services are not intended for children under 16 and we do not knowingly collect
+                            data from
+                            anyone under 16. If we become aware that a person under 16 has provided us with personal
+                            data, we will delete it immediately. <br>
+                            If you are resident in Uzbekistan and under 18, we are not permitted to contract with you
+                            directly. If you are a resident in Uzbekistan and under 18 then, by agreeing to this Privacy
+                            Policy, you acknowledge and agree that your guardian has read and consented to its terms on
+                            your behalf. If we seek your consent to process your personal data for a specific purpose in
+                            accordance with this Privacy Policy, consent must be granted on your behalf by your
+                            guardian." %}
+                        </p>
+                        <h5>{% trans "4.Why do we process your personal information?" %}</h5>
+                        <p>{% trans "We will only use your personal data when the law allows us to. Most commonly, we
+                            will use
+                            your personal data in the following circumstances: <br>
+                            • Where we need to perform the contract, we are about to enter into or have entered into
+                            with you.<br>
+                            • Where it is necessary for our legitimate interests to improve our Services and to provide
+                            you a safe and secure Platform.<br>
+                            • Where we need to comply with a legal or regulatory obligation.<br>
+                            In certain circumstances, we may also process your personal data based on your consent. If
+                            we do this, we will let you know the purpose and the category of personal data to be
+                            processed at the time we seek your consent.<br>
+                            We have set out below a description of the ways we use your personal data.<br>
+                            • For providing access and delivering Services through our Platform<br>
+                            • If you log in using your mobile number or email id, we use your first name and last name,
+                            mobile number and/or e-mail address to identify you as a user and provide access to our
+                            Platform.<br>
+                            • If you log in using your Facebook account, we use your first name and last name from your
+                            Facebook profile and the Facebook e-mail address to identify you as a user on our Platform
+                            and to provide you access to our Platform.<br>
+                            The above log-information data is also used by us to deliver our Services to you in
+                            accordance with our Terms of Use.<br>
+                            We use your e-mail address and mobile number (by SMS) to make suggestions and
+                            recommendations to you about our Services that may be of interest to you.<br>
+                            We process the above information for adequate performance of our contract with you and on
+                            the basis of our legitimate interest in undertaking marketing activities to offer you
+                            Services that may be of your interest.<br>
+
+                            • For improving your experience on the Platform<br>
+                            We use clickstream data to:<br>
+                            • offer you tailored content, such as giving you more relevant search results when using our
+                            Services;<br>
+                            • to determine how much time you spend on our Platform and in what manner you navigate
+                            through our Platform in order to understand your interests and to improve our Services based
+                            on this data. For example, we may provide you with suggestions on content that you can visit
+                            based on the contents you have clicked; and<br>
+                            • to monitor and report the effectiveness of the campaign delivery to our business partners
+                            and for internal business analysis.<br>
+                            We use your location data for the following purposes:<br>
+                            • to compile anonymous and aggregated information about the characteristics and behavior of
+                            DREAMMARKET users, including for the purposes of business analysis, segmentation and
+                            development of anonymous profiles;<br>
+                            • to enhance the performance of our Services and to personalize the content we direct
+                            towards you. For example - with the help of location data we display ad listings which are
+                            in your vicinity to improve your buying experience; and<br>
+                            • to measure and monitor your interaction with the third-party advertisements banners we
+                            place on our Platform.<br>
+                            With the help of your log-in information which includes your email id and phone number, we
+                            map the different devices (such as desktop, mobile, tablets) used by you to access our
+                            Platform. This allows us to associate your activity on our Platform across devices and helps
+                            us in providing you a seamless experience no matter which device you use.<br>
+                            We process the above information on the basis of our legitimate interest to improve your
+                            experience on our Platform and for adequate performance of our contract with you.<br>
+                            • To provide you with a safe and secure Platform<br>
+                            1. We use your mobile number, log data and unique device identifiers to administer and
+                            protect our Platform (including troubleshooting, data analysis, testing, fraud prevention,
+                            system maintenance, support, reporting and hosting of data).<br>
+                            2. We analyze your communications done through our chat feature for fraud prevention and to
+                            promote safety by blocking spam or abusive messages that may have been sent to you by any
+                            other user.
+                            We process the above information for adequate performance of our contract with you, to
+                            improve our services and on the basis of our legitimate interest to prevent fraud." %}<br>
+                        </p>
+                        <h5>{% trans "5.How will we inform you about changes in our privacy statement?" %}</h5>
+                        <p>{% trans "We may amend this privacy statement from time to time. We will post changes on this
+                            page and
+                            will let you know by e-mail or through our Platform. If you or your guardian (as the case
+                            may be) do not agree with the changes, you may close your account by going to account
+                            setting and select delete account." %}</p>
+                        <h5>{% trans "6.Your rights" %}</h5>
+                        <p>{% trans "You may have certain legal rights regarding your personal data depending on the
+                            country you
+                            are in or how we interact with you. You can learn more about this in this section." %}</p>
+                        <h5>{% trans "6.1.Uzbekistani data subjects" %}</h5>
+                        <p>{% trans "If you are a data subject in Uzbekistan, you will have the following rights:" %}</p>
+                        <p>{% trans "• Right to request access to your personal data (commonly known as a “data subject
+                            access
+                            request”). This enables you to receive a copy of the personal data we hold about you and to
+                            check that we are lawfully processing it. <br>
+                            • Right to request correction of any of the data we have about you. This enables you to have
+                            any incomplete or inaccurate data we hold about you corrected, though we may need to verify
+                            the accuracy of the new data you provide to us.<br>
+                            • Right to withdraw your consent to the processing of your personal data at any time. This
+                            does not affect the legality of any processing we have already carried out based on the
+                            consent given previously." %}<br>
+                        </p>
+                        <h5>6.2.EU General Data Protection Regulation ("GDPR") data subjects" </h5>
+                        <p>{% trans "If you are a data subject under the GDPR, you will have certain additional rights
+                            in relation
+                            to our handling of your personal information.<br>
+                            • <strong>Right to request access</strong> to your personal data (commonly known as a “data
+                            subject access
+                            request”). This enables you to receive a copy of the personal data we hold about you and to
+                            check that we are lawfully processing it.<br>
+                            • <strong>Right to request correction</strong> of any of the data we have about you. This
+                            enables you to have
+                            any incomplete or inaccurate data we hold about you corrected, though we may need to verify
+                            the accuracy of the new data you provide to us.<br>
+                            • <strong>Right to withdraw</strong> your consent to the processing of your personal data at
+                            any time. This
+                            does not affect the legality of any processing we have already carried out based on the
+                            consent given previously.<br>
+                            • <strong>Right to request restriction</strong> of processing of your personal data. This
+                            enables you to ask
+                            us to suspend the processing of your personal data in the following scenarios: (a) if you
+                            want us to establish the data's accuracy; (b) where our use of the data is unlawful; (c)
+                            where you need us to hold the data even if we no longer require it as you need it to
+                            establish, exercise or defend legal claims; or (d) you have objected to our use of your data
+                            but we need to verify whether we have overriding legitimate grounds to use it.<br>
+                            • <strong>Right to request erasure</strong> of your personal data. This enables you to ask
+                            us to delete or
+                            remove personal data where there is no good reason for us continuing to process it. You also
+                            have the right to ask us to delete or remove your personal data where you have successfully
+                            exercised your right to object to processing (see below), where we may have processed your
+                            information unlawfully or where we are required to erase your personal data to comply with
+                            local law. Please note that for certain purposes we may be legally obligated to retain your
+                            data. Please see section 10.<br>
+                            • <strong>Right to object</strong> to the processing of your personal data where we are
+                            relying on a
+                            legitimate interest (or those of a third party) and there is something about your particular
+                            situation which makes you want to object to processing on this ground as you feel it impacts
+                            on your fundamental rights and freedoms. You also have the right to object where we are
+                            processing your personal data for direct marketing purposes. In some cases, we may
+                            demonstrate that we have compelling legitimate grounds to process your information which
+                            override your rights and freedoms.<br>
+                            • <strong>Right to request for the transfer</strong> of your personal data to you or to a
+                            third party. We
+                            will provide to you, or a third party you have chosen, your personal data in a structured,
+                            commonly used, machine-readable format. Note that this right only applies to automated
+                            information which you initially provided consent for us to use or where we used the
+                            information to perform a contract with you.<br>
+                            • To lodge a complaint at any time with your local supervisory responsible for you as
+                            outlined in section 13. However, before you make a complaint to the data protection
+                            authority, we would appreciate the chance to deal with your concerns in the first instance,
+                            please reach out to our Privacy Officer at <strong>privacy@DeamMarket.uz</strong>
+                            <strong>No fee usually required:</strong> You will not have to pay a fee to access your
+                            personal data (or to
+                            exercise any of the other rights). However, we may charge a reasonable fee if your request
+                            is clearly unfounded, repetitive or excessive. Alternatively, we may refuse to comply with
+                            your request in these circumstances.<br>
+                            <strong>Time limit to respond:</strong> We try to respond to all legitimate requests within
+                            one month.
+                            Occasionally it may take us longer than a month if your request is particularly complex or
+                            you have made several requests. In this case, we will notify you and keep you updated." %}<br>
+                        </p>
+                        <h5>{% trans "7.Communication and marketing" %}</h5>
+                        <p>{% trans "We will communicate with you by email, SMS or in app notification in connection
+                            with our Services/Platform to confirm your registration, to inform you in case your ad
+                            listing has become live/expired and for other transactional messages in relation to our
+                            Services. As it is imperative for us to provide you such transactional messages you may not
+                            be able to opt-out of such messages. <br>
+                            However, you can ask us to stop sending you marketing communication at any time by clicking
+                            on the opt-out link in the email or SMS sent to you or by reaching out us on
+                            <strong>Privacy@DeamMarket.uz</strong>
+                            You may receive marketing communications from us if you:<br>
+                            • have requested such information from us;<br>
+                            • use our Platform or Services;<br>
+                            • provided us with your details when you entered a competition; or<br>
+                            • registered for a promotion." %}<br>
+                        </p>
+                        <h5>{% trans "8.Technical and organizational measures and processing security" %}</h5>
+                        <p>{% trans "All the information we receive about you are stored on secure servers and we have
+                            implemented technical and organizational measures that are suitable and necessary to protect
+                            your personal data. DREAMMARKET continually evaluates the security of its network and
+                            adequacy of its internal information security program which is designed to (a) help secure
+                            your data against accidental or unlawful loss, access or disclosure, (b) identify reasonably
+                            foreseeable risks to the security of the DREAMMARKET network, and (c) minimize security
+                            risks, including through risk assessment and regular testing. In addition, we ensure that
+                            all payment data are encrypted using SSL technology. <br>
+                            Please note, despite the measures we have implemented to protect your data, the transfer of
+                            data through the Internet or other open networks is never completely secure and there is a
+                            risk that your personal data may be accessed by unauthorized third parties." %}
+                        </p>
+                        <h5>{% trans "9.Links to third-party websites" %}</h5>
+                        <p>{% trans "Our Platform may contain links to third party websites or apps. If you click on one
+                            of these links, please note that each one will have its own privacy policy. We do not
+                            control these websites/apps and are not responsible for those policies. When you leave our
+                            Platform, we encourage you to read the privacy notice of every website you visit." %}</p>
+                        <h5></h5>
+                        <p>{% trans "For any additional information or to exercise your rights, please contact our
+                            Privacy Officer at privacy@DeamMarket.uz, or go to the Help Section in our Platform. " %}<br>
+                            <strong>{% trans "Our Lead Supervisory Authority in relation to GDPR related complaints" %}
+                                is:</strong>
+                                {% trans "Telefon:" %} <a style="color: #000;" href="tel:+998 99 848-54-28">+998 99 848-54-28</a> <br>
+                                {% trans "E-Mail:" %} <a style="color: #000;"
+                                href="mailto:custumer@dreammarket.uz ">{% trans "custumer@dreammarket.uz" %}</a> <br>
+
+                                {% trans "*For Uzbekistani matters contact us" %}
+                        </p>
+                        <h5>{% trans "11. Changes to this Policy" %}</h5>
+                        <p>{% trans "We may amend this Privacy Policy from time to time to keep it up to date with legal
+                            requirements and the way we operate our business. Please regularly check this page for the
+                            latest version of this Privacy Policy. If we make material changes to this Privacy Policy,
+                            we will seek to inform you by notice on our website or application, or email ("Notice of
+                            Change"). <br>
+                            Your continued use of our Services following an amendment or Notice of Change indicates your
+                            or your guardian's acceptance (as the case may be) of any changes." %}
+                        </p>
+
+                    </div>
+                    <a href="#" class="close-popup"></a>
+
+                    <a href="#terms&condition">
+                        <li><i class='fa fa-angle-right'></i>{% trans "Terms and Conditions" %}</li>
+                    </a>
+                    <div id="terms&condition" class="popup">
+                        <a href="#" class="close">&times;</a>
+                        <h2>{% trans "TERMS AND CONDITIONS" %}</h2>
+                        <hr>
+                        <p>{% trans "The domain name www.DeamMarket.com (hereinafter referred to as "Website") is owned by
+                            DreamMarket Internet Private Limited a company incorporated under the Companies Act, with
+                            its registered office at Tashkent , Uzbekistan (hereinafter referred to as "DreamMarket")." %}
+                        </p>
+                        <p>{% trans "Your use of the Website and services and tools are governed by the following terms and
+                            conditions ("Terms of Use") as applicable to the Website including the applicable policies
+                            which are incorporated herein by way of reference. If You transact on the Website, You shall
+                            be subject to the policies that are applicable to the Website for such transaction. By mere
+                            use of the Website, You shall be contracting with DreamMarket Internet Private Limited and
+                            these terms and conditions including the policies constitute Your binding obligations, with
+                            DreamMarket." %}</p>
+                        <p>{% trans "For the purpose of these Terms of Use, wherever the context so requires "You" or "User" shall
+                            mean any natural or legal person who has agreed to become a buyer on the Website by
+                            providing Registration Data while registering on the Website as Registered User using the
+                            computer systems. DreamMarket allows the User to surf the Website or making purchases
+                            without registering on the Website. The term "We", "Us", "Our" shall mean DreamMarket
+                            Internet Private Limited." %}</p>
+                        <p>{% trans "When You use any of the services provided by Us through the Website, including but not
+                            limited to, (e.g., Product Reviews, Seller Reviews), You will be subject to the rules,
+                            guidelines, policies, terms, and conditions applicable to such service, and they shall be
+                            deemed to be incorporated into this Terms of Use and shall be considered as part and parcel
+                            of this Terms of Use. We reserve the right, at Our sole discretion, to change, modify, add
+                            or remove portions of these Terms of Use, at any time without any prior written notice to
+                            You. It is Your responsibility to review these Terms of Use periodically for updates /
+                            changes. Your continued use of the Website following the posting of changes will mean that
+                            You accept and agree to the revisions. As long as You comply with these Terms of Use, we
+                            grant You a personal, non-exclusive, non-transferable, limited privilege to enter and use
+                            the Website." %}</p>
+                        <p><strong>{% trans "ACCESSING, BROWSING OR OTHERWISE USING THE SITE INDICATES YOUR AGREEMENT TO ALL THE
+                                TERMS AND CONDITIONS UNDER THESE TERMS OF USE, SO PLEASE READ THE TERMS OF USE CAREFULLY
+                                BEFORE PROCEEDING." %}</strong></p>
+                        <p>{% trans "By impliedly or expressly accepting these Terms of Use, you also accept and agree to be bound
+                            by DreamMarket Policies ((including but not limited to Privacy Policy available on
+                            /s/privacy policy) as amended from time to time." %}</p>
+                        <h5>{% trans "Membership Eligibility:" %}</h5>
+                        <p>{% trans "Use of the Website is available only to persons who can form legally binding contracts under
+                            Uzbekistan. Persons who are "incompetent to contract" within the meaning of the Uzbekistan
+                            including minors, un-discharged insolvents etc. are not eligible to use the Website. If you
+                            are a minor i.e., under the age of 18 years, you shall not register as a User of the
+                            DreamMarket website and shall not transact on or use the website. As a minor if you wish to
+                            use or transact on website, such use or transaction may be made by your legal guardian or
+                            parents on the Website. DreamMarket reserves the right to terminate your membership and / or
+                            refuse to provide you with access to the Website if it is brought to DreamMarket' notice or
+                            if it is discovered that you are under the age of 18 years." %}</p>
+                        <h5>{% trans "Your Account and Registration Obligations:" %}</h5>
+                        <p>{% trans "If You use the Website, you shall be responsible for maintaining the confidentiality of your
+                            Display Name and Password and You shall be responsible for all activities that occur under
+                            your Display Name and Password. You agree that if You provide any information that is
+                            untrue, inaccurate, not current or incomplete or We have reasonable grounds to suspect that
+                            such information is untrue, inaccurate, not current or incomplete, or not in accordance with
+                            this Terms of Use, we shall have the right to indefinitely suspend or terminate or block
+                            access of your membership on the Website and refuse to provide You with access to the
+                            Website." %}</p>
+                        <h5>{% trans "Communications:" %}</h5>
+                        <p>{% trans "When You use the Website or send emails or other data, information or communication to us,
+                            you agree and understand that You are communicating with Us through electronic records and
+                            You consent to receive communications via electronic records from Us periodically and as and
+                            when required. We may communicate with you by email or by such other mode of communication,
+                            electronic or otherwise." %}</p>
+                        <h5>{% trans "Platform for Transaction and Communication:" %}</h5>
+                        <p>{% trans "The Website is a platform that Users utilize to meet and interact with one another for their
+                            transactions. DreamMarket is not and cannot be a party to or control in any manner any
+                            transaction between the Website's Users." %}</p>
+                        <p>{% trans "Henceforward:
+                            1. All commercial/contractual terms are offered by and agreed to between Buyers and Sellers
+                            alone. The commercial/contractual terms include without limitation price, shipping costs,
+                            payment methods, payment terms, date, period and mode of delivery, warranties related to
+                            products and services and after sales services related to products and services. DreamMarket
+                            does not have any control or does not determine or advise or in any way involve itself in
+                            the offering or acceptance of such commercial/contractual terms between the Buyers and
+                            Sellers." %}
+                        </p>
+                        <p>{% trans "2. DreamMarket does not make any representation or Warranty as to specifics (such as quality,
+                            value, salability, etc.) of the products or services proposed to be sold or offered to be
+                            sold or purchased on the Website. DreamMarket does not implicitly or explicitly support or
+                            endorse the sale or purchase of any products or services on the Website. DreamMarket accepts
+                            no liability for any errors or omissions, whether on behalf of itself or third parties." %}</p>
+                        <p>{% trans "3. DreamMarket is not responsible for any non-performance or breach of any contract entered
+                            into between Buyers and Sellers. DreamMarket cannot and does not guarantee that the
+                            concerned Buyers and/or Sellers will perform any transaction concluded on the Website.
+                            DreamMarket shall not and is not required to mediate or resolve any dispute or disagreement
+                            between Buyers and Sellers." %}</p>
+                        <p>{% trans "4. DreamMarket does not make any representation or warranty as to the item-specifics (such as
+                            legal title, creditworthiness, identity, etc.) of any of its Users. You are advised to
+                            independently verify the bona fides of any particular User that You choose to deal with on
+                            the Website and use Your best judgment in that behalf." %}</p>
+                        <p>{% trans "5. DreamMarket does not at any point of time during any transaction between Buyer and Seller
+                            on the Website come into or take possession of any of the products or services offered by
+                            Seller nor does it at any point gain title to or have any rights or claims over the products
+                            or services offered by Seller to Buyer." %}</p>
+                        <p>{% trans "6. At no time shall DreamMarket hold any right, title or interest over the products nor shall
+                            DreamMarket have any obligations or liabilities in respect of such contract entered into
+                            between Buyers and Sellers. DreamMarket is not responsible for unsatisfactory or delayed
+                            performance of services or damages or delays as a result of products which are out of stock,
+                            unavailable or back ordered." %}</p>
+                        <p>{% trans "7. The Website is only a platform that can be utilized by Users to reach a larger base to buy
+                            and sell products or services. DreamMarket is only providing a platform for communication
+                            and it is agreed that the contract for sale of any of the products or services shall be a
+                            strictly bipartite contract between the Seller and the Buyer.
+                            At no time shall DreamMarket hold any right, title or interest over the products nor shall
+                            DreamMarket have any obligations or liabilities in respect of such contract.
+                            DreamMarket is not responsible for unsatisfactory or delayed performance of services or
+                            damages or delays as a result of products which are out of stock, unavailable or back
+                            ordered." %}
+                        </p>
+                        <p>{% trans "8. You shall independently agree upon the manner and terms and conditions of delivery,
+                            payment, insurance etc. with the seller(s) that You transact with.
+
+                            <strong> Disclaimer:</strong> Pricing on any product(s) as is reflected on the Website may
+                            due to some technical issue, typographical error or product information published by seller
+                            may be incorrectly reflected and in such an event seller may cancel such your order(s)." %}
+                        </p>
+                        <p>{% trans "9. You release and indemnify DreamMarket and/or any of its officers and representatives from
+                            any cost, damage, liability or other consequence of any of the actions of the Users of the
+                            Website and specifically waive any claims that you may have in this behalf under any
+                            applicable law. Notwithstanding its reasonable efforts in that behalf, DreamMarket cannot
+                            take responsibility or control the information provided by other Users which is made
+                            available on the Website. You may find another User's information to be offensive, harmful,
+                            inconsistent, inaccurate, or deceptive. Please use caution and practice safe trading when
+                            using the Website.
+                            Please note that there could be risks in dealing with underage persons or people acting
+                            under false pretense." %}
+                        </p>
+                        <h5>{% trans "Use of the Website:" %}</h5>
+                        <p>{% trans "You agree, undertake and confirm that Your use of Website shall be strictly governed by the
+                            following binding principles:
+
+                            1. You shall not host, display, upload, modify, publish, transmit, update or share any
+                            information which:<br>
+                            (a) belongs to another person and to which You does not have any right to;<br>
+                            (b) is grossly harmful, harassing, blasphemous, defamatory, obscene, pornographic,
+                            pedophilic, libelous, invasive of another's privacy, hateful, or racially, ethnically
+                            objectionable, disparaging, relating or encouraging money laundering or gambling, or
+                            otherwise unlawful in any manner.<br>
+                            (c) is misleading in any way;<br>
+                            (d) is patently offensive to the online community, such as sexually explicit content, or
+                            content that promotes obscenity, pedophilia, racism, bigotry, hatred or physical harm of any
+                            kind against any group or individual;<br>
+                            (e) harasses or advocates harassment of another person;<br>
+                            (f) involves the transmission of "junk mail", "chain letters", or unsolicited mass mailing
+                            or "spamming";<br>
+                            (g) promotes illegal activities or conduct that is abusive, threatening, obscene, defamatory
+                            or libelous;<br>
+                            (h) infringes upon or violates any third party's rights [including, but not limited to,
+                            intellectual property rights, rights of privacy (including without limitation unauthorized
+                            disclosure of a person's name, email address, physical address or phone number) or rights of
+                            publicity];<br>
+                            (i) promotes an illegal or unauthorized copy of another person's copyrighted work (see
+                            "Copyright complaint" below for instructions on how to lodge a complaint about uploaded
+                            copyrighted material), such as providing pirated computer programs or links to them,
+                            providing information to circumvent manufacture-installed copy-protect devices, or providing
+                            pirated music or links to pirated music files;<br>
+                            (j) contains restricted or password-only access pages, or hidden pages or images (those not
+                            linked to or from another accessible page);<br>
+                            (k) provides material that exploits people in a sexual, violent or otherwise inappropriate
+                            manner or solicits personal information from anyone;<br>
+                            (l) provides instructional information about illegal activities such as making or buying
+                            illegal weapons, violating someone's privacy, or providing or creating computer viruses;<br>
+                            (m) contains video, photographs, or images of another person (with a minor or an adult).<br>
+                            (n) tries to gain unauthorized access or exceeds the scope of authorized access to the
+                            Website or to profiles, blogs, communities, account information, bulletins, friend request,
+                            or other areas of the Website or solicits passwords or personal identifying information for
+                            commercial or unlawful purposes from other users;<br>
+                            (o) engages in commercial activities and/or sales without Our prior written consent such as
+                            contests, sweepstakes, barter, advertising and pyramid schemes, or the buying or selling of
+                            "virtual" products related to the Website. Throughout this Terms of Use, DreamMarket’ prior
+                            written consent means a communication coming from DreamMarket’ Legal Department,
+                            specifically in response to Your request, and specifically addressing the activity or
+                            conduct for which You seek authorization;<br>
+                            (p) solicits gambling or engages in any gambling activity which We, in Our sole discretion,
+                            believes is or could be construed as being illegal;<br>
+                            (q) interferes with another USER's use and enjoyment of the Website or any other
+                            individual's User and enjoyment of similar services;<br>
+                            (r) refers to any website or URL that, in Our sole discretion, contains material that is
+                            inappropriate for the Website or any other website, contains content that would be
+                            prohibited or violates the letter or spirit of these Terms of Use.<br>
+                            (s) harm minors in any way;<br>
+                            (t) infringes any patent, trademark, copyright or other proprietary rights or third party's
+                            trade secrets or rights of publicity or privacy or shall not be fraudulent or involve the
+                            sale of counterfeit or stolen products;<br>
+                            (u) violates any law for the time being in force;<br>
+                            (v) deceives or misleads the addressee/ users about the origin of such messages or
+                            communicates any information which is grossly offensive or menacing in nature;<br>
+                            (w) impersonate another person;<br>
+                            (x) contains software viruses or any other computer code, files or programs designed to
+                            interrupt, destroy or limit the functionality of any computer resource; or contains any
+                            trojan horses, worms, time bombs, cancelbots, easter eggs or other computer programming
+                            routines that may damage, detrimentally interfere with, diminish value of, surreptitiously
+                            intercept or expropriate any system, data or personal information;<br>
+                            (y) threatens the unity, integrity, defense, security or sovereignty of Uzbekistan, friendly
+                            relations with foreign states, or public order or causes incitement to the commission of any
+                            cognizable offence or prevents investigation of any offence or is insulting any other
+                            nation.<br>
+                            (z) shall not be false, inaccurate or misleading;<br>
+                            (aa) shall not, directly or indirectly, offer, attempt to offer, trade or attempt to trade
+                            in any item, the dealing of which is prohibited or restricted in any manner under the
+                            provisions of any applicable law, rule, regulation or guideline for the time being in
+                            force.<br>
+                            (ab) shall not create liability for Us or cause Us to lose (in whole or in part) the
+                            services of Our internet service provider ("ISPs") or other suppliers;<br>
+
+
+                            2. You shall not use any "deep-link", "page-scrape", "robot", "spider" or other automatic
+                            device, program, algorithm or methodology, or any similar or equivalent manual process, to
+                            access, acquire, copy or monitor any portion of the Website or any Content, or in any way
+                            reproduce or circumvent the navigational structure or presentation of the Website or any
+                            Content, to obtain or attempt to obtain any materials, documents or information through any
+                            means not purposely made available through the Website. We reserve Our right to bar any such
+                            activity.<br>
+
+                            3. You shall not attempt to gain unauthorized access to any portion or feature of the
+                            Website, or any other systems or networks connected to the Website or to any server,
+                            computer, network, or to any of the services offered on or through the Website, by hacking,
+                            password "mining" or any other illegitimate means.<br>
+
+                            4. You shall not probe, scan or test the vulnerability of the Website or any network
+                            connected to the Website nor breach the security or authentication measures on the Website
+                            or any network connected to the Website. You may not reverse look-up, trace or seek to trace
+                            any information on any other User of or visitor to Website, or any other customer, including
+                            any account on the Website not owned by You, to its source, or exploit the Website or any
+                            service or information made available or offered by or through the Website, in any way where
+                            the purpose is to reveal any information, including but not limited to personal
+                            identification or information, other than Your own information, as provided for by the
+                            Website.<br>
+
+                            5. You agree not to use any device, software or routine to interfere or attempt to interfere
+                            with the proper working of the Website or any transaction being conducted on the Website, or
+                            with any other person's use of the Website.<br>
+
+                            6. You may not forge headers or otherwise manipulate identifiers in order to disguise the
+                            origin of any message or transmittal You send to Us on or through the Website or any service
+                            offered on or through the Website. You may not pretend that You are, or that You represent,
+                            someone else, or impersonate any other individual or entity.<br>
+
+                            7. You may not use the Website or any content for any purpose that is unlawful or prohibited
+                            by these Terms of Use, or to solicit the performance of any illegal activity or other
+                            activity which infringes the rights of DreamMarket and / or others.<br>
+
+                            8. Solely to enable Us to use the information You supply Us with, so that we are not
+                            violating any rights You might have in Your Information, you agree to grant Us a
+                            non-exclusive, worldwide, perpetual, irrevocable, royalty-free, sub-licensable (through
+                            multiple tiers) right to exercise the copyright, publicity, database rights or any other
+                            rights You have in Your Information, in any media now known or not currently known, with
+                            respect to Your Information. We will only use Your information in accordance with the Terms
+                            of Use and Privacy Policy applicable to use of the Website.<br>
+
+                            9. From time to time, you shall be responsible for providing information relating to the
+                            products or services proposed to be sold by You. In this connection, you undertake that all
+                            such information shall be accurate in all respects. You shall not exaggerate or over
+                            emphasize the attributes of such products or services so as to mislead other Users in any
+                            manner.<br>
+
+                            10. You shall not engage in advertising to, or solicitation of, other Users of the Website
+                            to buy or sell any products or services, including, but not limited to, products or services
+                            related to that being displayed on the Website or related to us. You may not transmit any
+                            chain letters or unsolicited commercial or junk email to other Users via the Website. It
+                            shall be a violation of these Terms of Use to use any information obtained from the Website
+                            in order to harass, abuse, or harm another person, or in order to contact, advertise to,
+                            solicit, or sell to another person other than Us without Our prior explicit consent. In
+                            order to protect Our Users from such advertising or solicitation, we reserve the right to
+                            restrict the number of messages or emails which a user may send to other Users in any
+                            24-hour period which We deems appropriate in its sole discretion. You understand that We
+                            have the right at all times to disclose any information (including the identity of the
+                            persons providing information or materials on the Website) as necessary to satisfy any law,
+                            regulation or valid governmental request. This may include, without limitation, disclosure
+                            of the information in connection with investigation of alleged illegal activity or
+                            solicitation of illegal activity or in response to a lawful court order or subpoena. In
+                            addition, we can (and You hereby expressly authorize Us to) disclose any information about
+                            You to law enforcement or other government officials, as we, in Our sole discretion, believe
+                            necessary or appropriate in connection with the investigation and/or resolution of possible
+                            crimes, especially those that may involve personal injury.
+                            We reserve the right, but has no obligation, to monitor the materials posted on the Website.
+                            DreamMarket shall have the right to remove or edit any content that in its sole discretion
+                            violates, or is alleged to violate, any applicable law or either the spirit or letter of
+                            these Terms of Use. Notwithstanding this right, YOU REMAIN SOLELY RESPONSIBLE FOR THE
+                            CONTENT OF THE MATERIALS YOU POST ON THE WEBSITE AND IN YOUR PRIVATE MESSAGES. Please be
+                            advised that such Content posted does not necessarily reflect DreamMarket views. In no event
+                            shall DreamMarket assume or have any responsibility or liability for any Content posted or
+                            for any claims, damages or losses resulting from use of Content and/or appearance of Content
+                            on the Website. You hereby represent and warrant that You have all necessary rights in and
+                            to all Content which You provide and all information it contains and that such Content shall
+                            not infringe any proprietary or other rights of third parties or contain any libelous,
+                            tortious, or otherwise unlawful information.<br>
+
+                            11.Your correspondence or business dealings with, or participation in promotions of,
+                            advertisers found on or through the Website, including payment and delivery of related
+                            products or services, and any other terms, conditions, warranties or representations
+                            associated with such dealings, are solely between You and such advertiser. We shall not be
+                            responsible or liable for any loss or damage of any sort incurred as the result of any such
+                            dealings or as the result of the presence of such advertisers on the Website.<br>
+
+                            12. It is possible that other users (including unauthorized users or "hackers") may post or
+                            transmit offensive or obscene materials on the Website and that You may be involuntarily
+                            exposed to such offensive and obscene materials. It also is possible for others to obtain
+                            personal information about You due to your use of the Website, and that the recipient may
+                            use such information to harass or injure You. We do not approve of such unauthorized uses,
+                            but by using the Website You acknowledge and agree that We are not responsible for the use
+                            of any personal information that You publicly disclose or share with others on the Website.
+                            Please carefully select the type of information that You publicly disclose or share with
+                            others on the Website.<br>
+
+                            13. DreamMarket shall have all the rights to take necessary action and claim damages that
+                            may occur due to your involvement/participation in any way on your own or through group/s of
+                            people, intentionally or unintentionally in DoS/DDoS (Distributed Denial of Services)." %}<br>
+                        </p>
+                        <h5>{% trans "Contents Posted on Site:" %}</h5>
+                        <p>{% trans "All text, graphics, user interfaces, visual interfaces, photographs, trademarks, logos,
+                            sounds, music and artwork (collectively, "Content"), is a third-party user generated content
+                            and DreamMarket has no control over such third-party user generated content as DreamMarket
+                            is merely an intermediary for the purposes of this Terms of Use.<br>
+                            Except as expressly provided in these Terms of Use, no part of the Website and no Content
+                            may be copied, reproduced, republished, uploaded, posted, publicly displayed, encoded,
+                            translated, transmitted or distributed in any way (including "mirroring") to any other
+                            computer, server, Website or other medium for publication or distribution or for any
+                            commercial enterprise, without DreamMarket' express prior written consent.<br>
+                            You may use information on the products and services purposely made available on the Website
+                            for downloading, provided that You (1) do not remove any proprietary notice language in all
+                            copies of such documents,<br> (2) use such information only for your personal,
+                            non-commercial informational purpose and do not copy or post such information on any
+                            networked computer or broadcast it in any media,<br> (3) make no modifications to any such
+                            information, and<br> (4) do not make any additional representations or warranties relating
+                            to such documents.<br>
+                            You shall be responsible for any notes, messages, emails, billboard postings, photos,
+                            drawings, profiles, opinions, ideas, images, videos, audio files or other materials or
+                            information posted or transmitted to the Website (collectively, "Content"). Such Content
+                            will become Our property and You grant Us the worldwide, perpetual and transferable rights
+                            in such Content. We shall be entitled to, consistent with Our Privacy Policy as adopted in
+                            accordance with applicable law, use the Content or any of its elements for any type of use
+                            forever, including but not limited to promotional and advertising purposes and in any media
+                            whether now known or hereafter devised, including the creation of derivative works that may
+                            include the Content You provide. You agree that any Content You post may be used by us,
+                            consistent with Our Privacy Policy and Rules of Conduct on Site as mentioned herein, and You
+                            are not entitled to any payment or other compensation for such use." %}
+                        </p>
+
+                        <h5>{% trans "Privacy:" %}</h5>
+                        <p>{% trans "We view protection of Your privacy as a very important principle. We understand clearly that
+                            You and Your Personal Information is one of Our most important assets. We store and process
+                            Your Information including any sensitive financial information collected (as defined under
+                            the Information Technology), if any, on computers that may be protected by physical as well
+                            as reasonable technological security measures and procedures in accordance with Information
+                            Technology Act 2000 and Rules there under. Our current Privacy Policy is available at
+                            /s/privacy policy. If You object to Your Information being transferred or used in this way
+                            please do not use Website.<br>
+
+                            We and our affiliates will share / sell / transfer / license / covey some or all of your
+                            personal information with another business entity should we (or our assets) plan to merge
+                            with or are acquired by that business entity, or re-organization, amalgamation,
+                            restructuring of business or for any other reason whatsoever. Should such a transaction or
+                            situation occur, the other business entity or the new combined entity will be required to
+                            follow the privacy policy with respect to your personal information. Once you provide your
+                            information to us, you provide such information to us and our affiliate and we and our
+                            affiliate may use such information to provide you various services with respect to your
+                            transaction whether such transaction is conducted on www.DreamMarket.uz or with third party
+                            merchant's or third-party merchant's website." %}
+                        </p>
+                        <h5>{% trans "Disclaimer of Warranties and Liability:" %}</h5>
+                        <p>{% trans "This Website, all the materials and products (including but not limited to software) and
+                            services, included on or otherwise made available to You through this site are provided on
+                            "as is" and "as available" basis without any representation or warranties, express or
+                            implied except otherwise specified in writing. Without prejudice to the forgoing paragraph,
+                            DreamMarket does not warrant that:<br>
+                            • This Website will be constantly available, or available at all; or<br>
+                            • The information on this Website is complete, true, accurate or non-misleading.<br>
+
+
+                            DreamMarket will not be liable to You in any way or in relation to the Contents of, or use
+                            of, or otherwise in connection with, the Website. DreamMarket does not warrant that this
+                            site; information, Content, materials, product (including software) or services included on
+                            or otherwise made available to You through the Website; their servers; or electronic
+                            communication sent from Us are free of viruses or other harmful components.<br>
+                            Nothing on Website constitutes, or is meant to constitute, advice of any kind. All the
+                            Products sold on Website are governed by different state laws and if Seller is unable to
+                            deliver such Products due to implications of different state laws, Seller will return or
+                            will give credit for the amount (if any) received in advance by Seller from the sale of such
+                            Product that could not be delivered to You.<br>
+                            You will be required to enter a valid phone number while placing an order on the Website. By
+                            registering Your phone number with us, you consent to be contacted by Us via phone calls
+                            and/or SMS notifications, in case of any order or shipment or delivery related updates. We
+                            will not use your personal information to initiate any promotional phone calls or SMS." %}<br>
+                        </p>
+                        <h5>{% trans "Selling:" %}</h5>
+                        <p>{% trans "As a registered seller, you are allowed to list item(s) for sale on the Website in accordance
+                            with the Policies which are incorporated by way of reference in this Terms of Use. You must
+                            be legally able to sell the item(s) you list for sale on our Website. You must ensure that
+                            the listed DreamMarket do not infringe upon the intellectual property, trade secret or other
+                            proprietary rights or rights of publicity or privacy rights of third parties. Listings may
+                            only include text descriptions, graphics and pictures that describe your item for sale. All
+                            listed DreamMarket must be listed in an appropriate category on the Website. All listed
+                            DreamMarket must be kept in stock for successful fulfilment of sales.<br>
+
+                            The listing description of the item must not be misleading and must describe actual
+                            condition of the product. If the item description does not match the actual condition of the
+                            item, you agree to refund any amounts that you may have received from the Buyer. You agree
+                            not to list a single product in multiple quantities across various categories on the
+                            Website. DreamMarket reserves the right to delete such multiple listings of the same product
+                            listed by you in various categories." %}
+                        </p>
+                        <h5>{% trans "Services:" %}</h5>
+                        <p><strong> {% trans "Payment" %}</strong>
+                            {% trans "While availing any of the payment method/s available on the Website, we will not be
+                            responsible or assume any liability, whatsoever in respect of any loss or damage arising
+                            directly or indirectly to You due to: <br>
+
+
+                            1. Lack of authorization for any transaction/s, or<br>
+                            2. Exceeding the preset limit mutually agreed by You and between "Bank/s", or<br>
+                            3. Any payment issues arising out of the transaction, or<br>
+                            4. Decline of transaction for any other reason/s<br>
+
+
+                            All payments made against the purchases/services on Website by you shall be compulsorily in
+                            Uzbekistan Rupees acceptable in the Republic of Uzbekistan. Website will not facilitate
+                            transaction with respect to any other form of currency with respect to the purchases made on
+                            Website.
+                            Before shipping / delivering your order to you, Seller may request you to provide supporting
+                            documents (including but not limited to Govt. issued ID and address proof) to establish the
+                            ownership of the payment instrument used by you for your purchase. This is done in the
+                            interest of providing a safe online shopping environment to Our Users.<br>
+                            <strong>Further:</strong><br>
+                            1. Transactions, Transaction Price and all commercial terms such as Delivery, Dispatch of
+                            products and/or services are as per principal-to-principal bipartite contractual obligations
+                            between Buyer and Seller and payment facility is merely used by the Buyer and Seller to
+                            facilitate the completion of the Transaction. Use of the payment facility shall not render
+                            DreamMarket liable or responsible for the non-delivery, non-receipt, non-payment, damage,
+                            breach of representations and warranties, non-provision of after sales or warranty services
+                            or fraud as regards the products and /or services listed on DreamMarket’ Website.<br>
+
+
+                            2. You have specifically authorized DreamMarket or its service providers to collect,
+                            process, facilitate and remit payments and / or the Transaction Price electronically or
+                            through Cash on Delivery to and from other Users in respect of transactions through Payment
+                            Facility. Your relationship with DreamMarket is on a principal-to-principal basis and by
+                            accepting these Terms of Use you agree that DreamMarket is an independent contractor for all
+                            purposes, and does not have control of or liability for the products or services that are
+                            listed on DreamMarket’ Website that are paid for by using the Payment Facility. DreamMarket
+                            does not guarantee the identity of any User nor does it ensure that a Buyer or a Seller will
+                            complete a transaction.<br>
+
+
+                            3. You understand, accept and agree that the payment facility provided by DreamMarket is
+                            neither a banking nor financial service but is merely a facilitator providing an electronic,
+                            automated online electronic payment, receiving payment through Cash On Delivery, collection
+                            and remittance facility for the Transactions on the DreamMarket Website using the existing
+                            authorized banking infrastructure and Credit Card payment gateway networks. Further, by
+                            providing Payment Facility, DreamMarket is neither acting as trustees nor acting in a
+                            fiduciary capacity with respect to the Transaction or the Transaction Price.<br>
+
+                            <strong>Facility for Buyers:</strong><br>
+                            • You, as a Buyer, understand that upon initiating a Transaction You are entering into a
+                            legally binding and enforceable contract with the Seller to purchase the products and /or
+                            services from the Seller using the Payment Facility, and You shall pay the Transaction Price
+                            through Your Issuing Bank to the Seller using Payment Facility.<br>
+                            • You, as a Buyer, may agree with the Seller through electronic communication and electronic
+                            records and using the automated features as may be provided by Payment Facility on any
+                            extension / increase in the Dispatch and/or Delivery time and the Transaction shall stand
+                            amended to such extent. Any such extension / increase of Dispatch / Delivery time or
+                            subsequent novation / variation of the Transaction should be in compliance with Payment
+                            Facility Rules and Policies.<br>
+                            • You, as a Buyer, shall electronically notify Payment Facility using the appropriate
+                            DreamMarket Website features immediately upon Delivery or non Delivery within the time
+                            period as provided in Policies. Non notification by You of Delivery or non Delivery within
+                            the time period specified in the Policies shall be construed as a deemed Delivery in respect
+                            of that Transaction. In case of Cash On Delivery transactions, Buyer is not required to
+                            confirm the receipt of products or services.<br>
+                            • You, as a Buyer, shall be entitled to claim a refund of the Transaction Price (as Your
+                            sole and exclusive remedy) in case You do not receive the Delivery within the time period
+                            agreed in the Transaction or within the time period as provided in the Policies, whichever
+                            is earlier. In case you do not raise a refund claim using Website features within the
+                            stipulated time than this would make You ineligible for a refund.<br>
+                            • You, as a Buyer, understand that the Payment Facility may not be available in full or in
+                            part for certain category of products and/or services and/or Transactions as mentioned in
+                            the Policies and hence You may not be entitled to a refund in respect of the Transactions
+                            for those products and /or services<br>
+                            • Except for Cash On Delivery transaction, refund, if any, shall be made at the same Issuing
+                            Bank from where Transaction Price was received.<br>
+                            • For Cash On Delivery transactions, refunds, if any, will be made via demand draft in favor
+                            of the Buyer (As per registration details provided by the Buyer)<br>
+                            • Refund shall be made in Uzbekistan Rupees only and shall be equivalent to the Transaction
+                            Price received in Uzbekistan Rupees.<br>
+                            • For electronics payments, refund shall be made through payment facility using NEFT / RTGS
+                            or any other online banking / electronic funds transfer system approved by Reserve Bank
+                            Uzbekistan (RBI).<br>
+                            • Refund shall be conditional and shall be with recourse available to DreamMarket in case of
+                            any misuse by Buyer.<br>
+                            • Refund shall be subject to Buyer complying with Policies.<br>
+
+                            4. DreamMarket reserves the right to impose limits on the number of Transactions or
+                            Transaction Price which DreamMarket may receive from on an individual Valid Credit/Debit/
+                            Cash Card / Valid Bank Account/ and such other infrastructure or any other financial
+                            instrument directly or indirectly through payment aggregator or through any such facility
+                            authorized by Reserve Bank of Uzbekistan to provide enabling support facility for collection
+                            and remittance of payment or by an individual Buyer during any time period, and reserves the
+                            right to refuse to process Transactions exceeding such limit.<br>
+
+                            5. DreamMarket reserves the right to refuse to process Transactions by Buyers with a prior
+                            history of questionable charges including without limitation breach of any agreements by
+                            Buyer with DreamMarket or breach/violation of any law or any charges imposed by Issuing Bank
+                            or breach of any policy.<br>
+
+                            6. DreamMarket may do such checks as it deems fit before approving the receipt of/Buyers
+                            commitment to pay (for Cash On Delivery transactions) Transaction Price from the Buyer for
+                            security or other reasons at the discretion of DreamMarket. As a result of such check if
+                            DreamMarket is not satisfied with the creditability of the Buyer or genuineness of the
+                            Transaction / Transaction Price, it will have the right to reject the receipt of / Buyers
+                            commitment to pay Transaction Price.<br>
+
+                            7. DreamMarket may delay notifying the payment confirmation i.e. informing Seller to
+                            Dispatch, if DreamMarket deems suspicious or for Buyers conducting high transaction volumes
+                            to ensure safety of the Transaction and Transaction Price. In addition, DreamMarket may hold
+                            Transaction Price and DreamMarket may not inform Seller to Dispatch or remit Transaction
+                            Price to law enforcement officials (instead of refunding the same to Buyer) at the request
+                            of law enforcement officials or in the event the Buyer is engaged in any form of illegal
+                            activity.<br>
+
+                            8. The Buyer and Seller acknowledge that DreamMarket will not be liable for any damages,
+                            interests or claims etc. resulting from not processing a Transaction/Transaction Price or
+                            any delay in processing a Transaction/Transaction Price which is beyond control of
+                            DreamMarket.<br>
+
+                            <strong>Compliance with Laws:</strong> <br>
+                            9. Buyer and Seller shall comply with all the applicable laws (including without limitation
+                            Foreign Exchange Management Act, 1999 and the rules made and notifications issued there
+                            under and the Exchange Control Manual as may be issued by Reserve Bank of Uzbekistan from
+                            time to time, Customs Act, Information and Technology Act, 2000 as amended by the
+                            Information Technology (Amendment) Act 2008, Prevention of Money Laundering Act, 2002 and
+                            the rules made there under, Foreign Contribution Regulation Act, 1976 and the rules made
+                            there under, Income Tax Act, 1961 and the rules made there under, Export Import Policy of
+                            government of Uzbekistan) applicable to them respectively for using Payment Facility and
+                            DreamMarket Website.<br>
+
+                            <strong> Buyer's arrangement with Issuing Bank:</strong> <br>
+                            10. All Valid Credit / Debit/ Cash Card/ and other payment instruments are processed using a
+                            Credit Card payment gateway or appropriate payment system infrastructure and the same will
+                            also be governed by the terms and conditions agreed to between the Buyer and the respective
+                            Issuing Bank and payment instrument issuing company.<br>
+
+                            11. All Online Bank Transfers from Valid Bank Accounts are processed using the gateway
+                            provided by the respective Issuing Bank which support Payment Facility to provide these
+                            services to the Users. All such Online Bank Transfers on Payment Facility are also governed
+                            by the terms and conditions agreed to between Buyer and the respective Issuing Bank." %}<br>
+                        </p>
+                        <h5>{% trans "Wallet:" %}</h5>
+                        <p>{% trans "The Wallet ("Wallet") is a pre-paid payment instrument which is associated with your Website
+                            account. You can maintain a balance of money with such specific Seller (if permitted), and
+                            redeem it at your convenience. Please note that Seller will be the issuer of wallet and
+                            Seller shall be responsible for redeeming the money lying to your credit of your wallet
+                            account and DreamMarket does not assume any risk, liability or responsibility with respect
+                            to wallet money.<br>
+                            Seller will not pay any interest on the amount maintained by you in your Seller specific
+                            Wallet.<br>
+
+                            <strong>Refill of Wallet:</strong> Your Wallet can be refilled, using any of the pre-paid
+                            payment options only. You will be able to recharge your Wallet up to an amount of ₹10,000 in
+                            one instance. There is no need to maintain a minimum balance. <br>
+                            <strong>Refund of Wallet Amount:</strong> Your Wallet comprises of three types of balances -
+                            Store credit (which is a credit granted by Us typically in lieu of a cancelled order),
+                            Topped-up balance (which is a prepaid amount that You added to the Wallet to pay for future
+                            orders on the Website) and Promotional balance (which is credit granted by Us purely for
+                            promotional or goodwill purposes). Topped-up balance (prepaid amount) as well as the
+                            Promotional balance added to the Wallet will be non-refundable while Store credit will
+                            continue to be entirely refundable.<br>
+                            <strong>Limitation of Liability:</strong> In no event will DreamMarket will be liable for
+                            any money lying to your credit in wallet, any special, incidental, indirect or consequential
+                            damages or losses of any kind, arising from the use of Wallet or association with the
+                            Wallet." %}
+                        </p>
+                        <h5>{% trans "30 Day Replacement Guarantee:" %}</h5>
+                        <p>{% trans "The 30-Day Replacement Guarantee seeks to assist Buyers who have been defrauded by qualified
+                            sellers on the Website. If at the time of delivery and/or within 30 days from the date of
+                            delivery of the product/s, if any defect is found, then the buyer of the product/s can ask
+                            for replacement of the product/s from the seller subject to the following terms and
+                            conditions: <br>
+                            1. Notify seller of any defects in the product/s at the time of delivery of the product/s
+                            and/or within 30 days from the date of delivery and the same product/s will be replaced in
+                            return of the defective product/s.<br>
+                            2. Replacement can be for the entire product/s or part/s of the product subject to
+                            availability of the same with the seller.<br>
+
+                            Following products shall not be eligible for return or replacement:<br>
+                            • Damages due to misuse of product;<br>
+                            • Incidental damage due to malfunctioning of product;<br>
+                            • Any consumable item which has been used/installed;<br>
+                            • Products with tampered or missing serial/UPC numbers;<br>
+                            • Any damage/defect which are not covered under the manufacturer's warranty<br>
+                            • Any product that is returned without all original packaging and accessories, including the
+                            box, manufacturer's packaging if any, and all other DreamMarket originally included with the
+                            product/s delivered;<br>
+                            • Jewelry which is 'made to order' on customer's request<br>
+
+                            On Clothing, Footwear and Jewelry, qualified sellers accept 30 day exchange subject to the
+                            following conditions:<br>
+
+                            Clothes and footwear are not used (other than for trial), altered, washed, soiled or damaged
+                            in any way.<br>
+                            Original tags and packaging should be intact. For DreamMarket that come in branded
+                            packaging, the box should be undamaged.<br>
+                            'Made to order' jewellery, Innerwear, lingerie, socks and clothing freebies are not covered
+                            under the return policy.<br>
+                            Damaged or defective clothing and footwear products are meanwhile covered by the 30 Day
+                            Replacement Guarantee.<br>
+
+                            If DreamMarket has suspicion or knowledge, that any of its buyers and sellers are involved
+                            in any activity that is intended to provide claims or information that is false, misleading
+                            or not genuine, then DreamMarket may while reserving its rights to initiate civil and/or
+                            criminal proceedings against member may also at its sole discretion suspend, block,
+                            restrict, cancel the Display Name of such buyer and seller and /or disqualify that user and
+                            any related users from availing protection through this program.<br>
+
+                            DreamMarket reserves its right to initiate civil and/or criminal proceedings against a user
+                            who, files a invalid and/or false claims or provides false, incomplete, or misleading
+                            information. In addition to the legal proceedings as aforesaid, DreamMarket may at its sole
+                            discretion suspend, block, restrict, cancel the Display Name [and its related Display Names]
+                            of such user and/or disqualify that user and any related users from availing protection
+                            through this program. Any person who, knowingly and with intent to injure, defraud or
+                            deceive, files a Fraudulent Complaint containing false, incomplete, or misleading
+                            information may be guilty of a criminal offence and will be prosecuted to the fullest extent
+                            of the law." %}<br>
+                        </p>
+                        <h5>{% trans "Digital Content: eBooks" %}</h5>
+                        <p>{% trans "eBook (pub format): You will be able to purchase DRM-encrypted eBooks in ePub file format on
+                            the DreamMarket Website and the eBooks application. Such ePub files shall be provided to you
+                            as per your selection, subject to certain limitations as described herein. You shall be
+                            granted specified download rights of DRM-encrypted ePub files from the catalog of eBooks
+                            displayed on the Website. <br>
+
+                            Download rights: You will need to be registered with DreamMarket to make an eBook purchase.
+                            The eBooks which you purchase from the DreamMarket Website or eBooks application shall be
+                            added in your DreamMarket eBooks library from where you can download the eBooks onto your
+                            device(/s). Each downloaded eBook is locked to the User account and the downloader device.
+                            These downloaded eBooks cannot be transferred onto other devices. Each device used by you
+                            will have to be synced with your online eBook’s library. You can sync a maximum of six(6)
+                            devices against your user account. You can download the eBooks to your mobile or tablet
+                            devices for offline reading and can read the eBooks using the eBooks Application only.<br>
+
+                            Rights Granted: Upon your payment of our fees for eBook, we grant you a non-exclusive,
+                            non-transferable right to use the downloaded eBook for your personal, non-commercial,
+                            entertainment use, subject to and in accordance with the Terms of Use. You may store the
+                            eBook only for your personal, non-commercial, entertainment use, subject to and in
+                            accordance with the Terms of Use. You represent, warrant and agree that you will use the
+                            eBook only for your personal, non-commercial, entertainment use and not for any
+                            redistribution of the same or other use restricted in this Section. You agree not to
+                            infringe the rights of the copyright owners and to comply with all applicable laws in your
+                            use of the ebook. You agree that you will not redistribute, transmit, assign, sell,
+                            broadcast, rent, share, lend, modify, adapt, edit, license or otherwise transfer or use
+                            ebook. You are not granted any synchronization, public performance, promotional use,
+                            commercial sale, resale, reproduction or distribution rights for ebook. You acknowledge that
+                            the ebook embodies the intellectual property of a third party and is protected by law.<br>
+
+                            Explicit Consent: You agree that we shall have no liability to you for ebook downloaded by
+                            You on the Website or Flyte Apps if you find the same to be offensive, indecent or
+                            objectionable.<br>
+
+                            Payment: The Price List for each downloadable ebook displayed on the Website represents the
+                            full retail price (inclusive of all taxes unless specified otherwise) for said downloadable
+                            ebook. You shall pay for such downloadable ebook using one of the payment options available
+                            on the Website. The Price List mentions the prices of each downloadable ebook and the User
+                            shall pay in Uzbekistan Currency (i.e. Uzbekistan Rupee). We reserve our right to change the
+                            prices of the ebook and services and the availability of the same at our sole
+                            discretion.<br>
+
+                            DreamMarket will allow the user to buy ebook using the following forms of payments.<br>
+                            » Credit Cards<br>
+                            » Internet Banking<br>
+                            » Debit Cards<br>
+                            » Wallet<br>
+                            » any other mode of payment, as may be decided and made available on the Website.<br>
+
+                            Please note that payment can be made only in Uzbekistan Rupees and all the above payment
+                            instruments must have been issued by entities operating in Uzbekistan and subject to
+                            Uzbekistan regulations.<br>
+
+                            Cash on Delivery as a mode of payment is not available for purchasing ebook on the Website
+                            currently.<br>
+
+                            Payment made by credit card or any other mode as mentioned above should be received by us on
+                            time. If for any reason we do not receive payment from the credit card issuer or any agent
+                            involved in any of the above payment modes, you agree that you shall pay all amounts due
+                            upon demand by us.<br>
+
+                            All Sales Final; Downloading and Risk of Loss; Availability of eBooks. All sales of eBooks
+                            are final. We do not accept returns of eBooks. Once you have purchased eBooks, we encourage
+                            you to download it promptly. If you are unable to complete a download, please contact
+                            customer service within 30 days of the payment. The eBook will be removed from your library
+                            and the amount that was charged during the payment will be refunded in the form of store
+                            credit. The eBooks will also be replaced in cases of genuine technical errors as mentioned
+                            in the replacement policy.<br>
+
+                            You bear all risk of loss after purchase and for any loss of eBooks you have downloaded,
+                            including any loss due to a computer or hard drive crash. We may, from time to time, at our
+                            sole discretion remove eBooks from the Service without notice.<br>
+
+                            Intellectual Property Rights: It is hereby specifically recorded that the copyright and
+                            other Intellectual Property in the eBook available on the Website is the sole and exclusive
+                            property of third parties. We are authorised by such third parties to upload the eBook on
+                            the Website for license of use to the end customers. Intellectual Property Rights for the
+                            purpose of this Agreement shall always mean and include copyrights whether registered or
+                            not, patents including rights of filing patents, trademarks, trade names, trade dresses,
+                            house marks, collective marks, associate marks and the right to register them, designs both
+                            industrial and layout, geographical indicators, moral rights, broadcasting rights,
+                            displaying rights, distribution rights, selling rights, abridged rights, translating rights,
+                            reproducing rights, performing rights, communicating rights, adapting rights, circulating
+                            rights, protected rights, joint rights, reciprocating rights, infringement rights. All those
+                            Intellectual Property rights arising as a result of domain names, internet or any other
+                            right available under applicable law shall vest in the domain of DreamMarket Internet
+                            Private Limited as the owner of such domain name. The Parties hereto agree and confirm that
+                            no part of any Intellectual Property rights mentioned hereinabove is transferred in the name
+                            of User and any intellectual property rights arising as a result of these presents shall
+                            also be in the absolute ownership, possession and our control or control of its licensors,
+                            as the case may be.<br>
+
+                            Your request to download an ebook is personal to you, and the ebook may not be used, sold,
+                            rented, transferred, licensed or otherwise provided to any other user. The license to
+                            downloaded eBooks includes only those rights explicitly stated herein (typically, the right
+                            to read the ebook in Flyte eBooks Application), and, for the avoidance of doubt, does not
+                            include the right to create a derivative work, to make copies, or to use the ebook in any
+                            commercial manner. You shall promptly notify us in writing upon your discovery of any
+                            unauthorized use or infringement.<br>
+
+                            Software: We may make available to you, from time to time, software or updates for your use
+                            in connection with the download of eBooks (any and all such software, individually and
+                            collectively, the "Software").<br>
+
+                            You may use the Software only in connection with the download of eBooks on the Website. You
+                            may not separate any individual component of the Software for use other than in connection
+                            to the download, may not incorporate any portion of it into Your own programs or compile any
+                            portion of it in combination with your own programs, may not transfer it for use with
+                            another service, or use it, or any portion of it, over a network and may not sell, rent,
+                            lease, lend, loan, distribute or sub-license the Software or otherwise assign any rights to
+                            the Software in whole or in part. We may discontinue some or all of any Software we provide,
+                            and we may terminate your right to use any Software at any time and in such event may modify
+                            it to make it inoperable.<br>
+
+                            Without limiting the Disclaimer of Warranties and Limitation of Liability in this terms of
+                            use, in no event shall our or our and/or our Digital Content providers' total liability to
+                            You for all damages arising from your use of the Service, the Digital Content, or
+                            information, materials or products included on or otherwise made available to You through
+                            the Service (excluding the Software), exceed the amount You paid to purchase, on the
+                            Service, the Digital Content related to Your claim for damages." %}<br>
+
+                        </p>
+                        <h5>{% trans "Indemnity:" %}</h5>
+                        <p>{% trans "You shall indemnify and hold harmless DreamMarket, its owner, licensee, affiliates,
+                            subsidiaries, group companies (as applicable) and their respective officers, directors,
+                            agents, and employees, from any claim or demand, or actions including reasonable attorneys'
+                            fees, made by any third party or penalty imposed due to or arising out of Your breach of
+                            this Terms of Use, privacy Policy and other Policies, or Your violation of any law, rules or
+                            regulations or the rights (including infringement of intellectual property rights) of a
+                            third party." %}</p>
+                        <h5>{% trans "Applicable Law:" %}</h5>
+                        <p>{% trans "Terms of Use shall be governed by and interpreted and construed in accordance with the laws
+                            of Uzbekistan. The place of jurisdiction shall be exclusively in Bangalore." %}</p>
+                        <h5>{% trans "Jurisdictional Issues/Sale in Uzbekistan Only:" %}</h5>
+                        <p>{% trans "Unless otherwise specified, the material on the Website is presented solely for the purpose
+                            of sale in Uzbekistan. DreamMarket make no representation that materials in the Website are
+                            appropriate or available for use in other locations/Countries other than Uzbekistan. Those
+                            who choose to access this site from other locations/Countries other than Uzbekistan do so on
+                            their own initiative and DreamMarket is not responsible for supply of products/refund for
+                            the products ordered from other locations/Countries other than Uzbekistan, compliance with
+                            local laws, if and to the extent local laws are applicable." %}</p>
+                        <h5>{% trans "Trademark, Copyright and Restriction:" %}</h5>
+                        <p>{% trans "This site is controlled and operated by DreamMarket and products are sold by respective
+                            Sellers. All material on this site, including images, illustrations, audio clips, and video
+                            clips, are protected by copyrights, trademarks, and other intellectual property rights.
+                            Material on Website is solely for Your personal, non-commercial use. You must not copy,
+                            reproduce, republish, upload, post, transmit or distribute such material in any way,
+                            including by email or other electronic means and whether directly or indirectly and You must
+                            not assist any other person to do so. Without the prior written consent of the owner,
+                            modification of the materials, use of the materials on any other website or networked
+                            computer environment or use of the materials for any purpose other than personal,
+                            non-commercial use is a violation of the copyrights, trademarks and other proprietary
+                            rights, and is prohibited. Any use for which You receive any remuneration, whether in money
+                            or otherwise, is a commercial use for the purposes of this clause. <br>
+                            Trademark complaint <br>
+                            DreamMarket respects the intellectual property of others. In case You feel that Your
+                            Trademark has been infringed, you can write to DreamMarket at infringement@DreamMarket.uz or
+                            ss@DreamMarket.uz." %}
+                        </p>
+                        <h5>{% trans "Limitation of Liability:" %}</h5>
+                        <p>{% trans "IN NO EVENT SHALL DREAMMARKET BE LIABLE FOR ANY SPECIAL, INCIDENTAL, INDIRECT OR
+                            CONSEQUENTIAL DAMAGES OF ANY KIND IN CONNECTION WITH THESE TERMS OF USE, EVEN IF USER HAS
+                            BEEN INFORMED IN ADVANCE OF THE POSSIBILITY OF SUCH DAMAGES." %}</p>
+
+                    </div>
+                    <a href="#" class="close-popup"></a>
+                </ul>
+            </div>
+
+            <!--  for contact us info -->
+            <div class="footer-items">
+                <h3>{% trans "Contact us" %}</h3>
+                <div class="border1"></div>
+                <ul>
+                    <li><i class="fa fa-map-marker-alt"></i>{% trans "Chilanzar District - 190417" %} <br>{% trans "Tashkent City, UZBEKISTAN" %}
+                    </li>
+                    <li><i class="fa fa-phone" aria-hidden="true"></i><a href="tel:+998337352212">+998 337352212</a>
+                    </li>
+                    <li><i class="fa fa-envelope" aria-hidden="true"></i><a
+                            href="mail: custumer@dreammarket.uz">{% trans "custumer" %} <br> {% trans "@dreammarket.uz" %}</a></li>
+                </ul>
+
+                <!--   for social links -->
+                <div class="social-media" style="color: white;">
+                    <a href="https://www.facebook.com/Shopare-614798372524692" style="color: white;"><i
+                            class="fa fa-facebook-square"></i></a>
+                    <a href="https://www.instagram.com/the_shopare/" style="color: white;"><i
+                            class="fa fa-instagram"></i></a>
+                    <a href="" style="color: white;"><i class="fa fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/the-shopare-61500218a/" style="color: white;"><i
+                            class="fa fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!--   Footer Bottom start  -->
+        <div class="footer-bottom">
+            Desgined & Developed by: <a href="http://webdevelopersfactory.pythonanywhere.com/" target="blank">Web
+                Developers Factory</a> <br> Copyright &copy; Items 2021.
+
+        </div>
+    </div>
+    <!-- Footer end -->
+
+    <!-- javaScripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
